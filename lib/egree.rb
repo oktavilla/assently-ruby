@@ -1,5 +1,8 @@
 require "egree/version"
+require "egree/client"
 
 module Egree
-  # Your code goes here...
+  def self.client *args
+    Client.new *args
+  end
 end
