@@ -50,7 +50,7 @@ RSpec.describe Egree::Client do
     describe "with a successful response" do
       before do
         stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
-          code: 200,
+          status: 200,
           body: '{ "result": "Success" }'
         })
       end
@@ -65,6 +65,20 @@ RSpec.describe Egree::Client do
         result = client.post "/some/path"
 
         expect(result.response).to eq("result" => "Success")
+      end
+    end
+
+    describe "with a error response" do
+      before do
+        stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
+          status: 500
+        })
+      end
+
+      it "returns a success result" do
+        result = client.post "/some/path"
+
+        expect(result.success?).to be false
       end
     end
   end

@@ -18,6 +18,8 @@ module Egree
 
       if response.success?
         SuccessResult.new parse_response(response.body)
+      else
+        ErrorResult.new
       end
     end
 
@@ -70,6 +72,12 @@ module Egree
 
       def success?
         true
+      end
+    end
+
+    class ErrorResult
+      def success?
+        false
       end
     end
   end
