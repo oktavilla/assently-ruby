@@ -2,22 +2,18 @@ require "spec_helper"
 require "egree/case"
 
 module Egree
-  def self.signature_types
-    [ "sms", "electronicId", "touch" ]
-  end
-
   RSpec.describe Case do
     it "requires a name" do
-      signature_case = Case.new "Agreement", Egree.signature_types
+      signature_case = Case.new "Agreement", Case.signature_types
 
       expect(signature_case.name).to eq "Agreement"
     end
 
     describe "signature types" do
       it "requires at least one valid signature type" do
-        signature_case = Case.new "Agreement", Egree.signature_types.first
+        signature_case = Case.new "Agreement", Case.signature_types.first
 
-        expect(signature_case.signature_types).to eq [ Egree.signature_types.first ]
+        expect(signature_case.signature_types).to eq [ Case.signature_types.first ]
       end
 
       it "throws an error if it is an unknown signature type" do
@@ -26,7 +22,7 @@ module Egree
     end
 
     it "adds a party" do
-      signature_case = Case.new "Agreement", Egree.signature_types
+      signature_case = Case.new "Agreement", Case.signature_types
 
       party = double "Party"
       signature_case.add_party party
@@ -35,7 +31,7 @@ module Egree
     end
 
     it "adds a document" do
-      signature_case = Case.new "Agreement", Egree.signature_types
+      signature_case = Case.new "Agreement", Case.signature_types
 
       document = double "Document"
       signature_case.add_document document
