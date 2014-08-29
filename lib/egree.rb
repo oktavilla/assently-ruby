@@ -2,7 +2,7 @@ require "egree/version"
 require "egree/client"
 
 module Egree
-  def self.client *args
-    Client.new *args
+  def self.client username, password, environment = :production
+    Client.new username, password, environment
   end
 end
