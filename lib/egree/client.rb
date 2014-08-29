@@ -1,3 +1,4 @@
+require "json"
 require "faraday"
 
 module Egree
@@ -12,11 +13,11 @@ module Egree
       self.environment = environment
     end
 
-    def post url, body
-      connection.post do |request|
-        request.url url
-        request.headers["Content-Type"] = "application/json; charset=utf-8"
-        request.body = body
+    def post url, body = nil
+      response = make_post url, body
+
+      if response.success?
+        SuccessResult.new parse_response(response.body)
       end
     end
 
@@ -37,11 +38,39 @@ module Egree
 
     private
 
+    def make_post url, body
+      connection.post do |request|
+        request.url url
+        request.headers["Content-Type"] = "application/json; charset=utf-8"
+        request.body = body if body
+      end
+    end
+
+    def parse_response body
+      begin
+        JSON.parse body
+      rescue JSON::ParserError
+        body
+      end
+    end
+
     def hosts
       {
         production: "app.egree.com",
         test: "test.underskrift.se"
       }
+    end
+
+    class SuccessResult
+      attr_reader :response
+
+      def initialize response
+        @response = response
+      end
+
+      def success?
+        true
+      end
     end
   end
 end

@@ -31,19 +31,40 @@ RSpec.describe Egree::Client do
   describe "#post" do
     it "it sends the json as the request body" do
       stub_request(:post, "https://admin:secret@app.egree.com/some/path").with({
-        body: '{ key: "value" }'
+        body: '{ "key": "value" }'
       })
 
-      client.post "/some/path", '{ key: "value" }'
+      client.post "/some/path", '{ "key": "value" }'
     end
 
     describe "headers" do
       it "sets application/json with utf8 charset" do
         stub_request(:post, "https://admin:secret@app.egree.com/some/path").with({
-          headers: { "Content-Type" => "application/json; charset=utf-8" }
+          headers: { "content-type" => "application/json; charset=utf-8" }
         })
 
-        client.post "/some/path", '{ key: "value" }'
+        client.post "/some/path", '{ "key": "value" }'
+      end
+    end
+
+    describe "with a successful response" do
+      before do
+        stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
+          code: 200,
+          body: '{ "result": "Success" }'
+        })
+      end
+
+      it "returns a success result" do
+        result = client.post "/some/path"
+
+        expect(result.success?).to be true
+      end
+
+      it "parses the response" do
+        result = client.post "/some/path"
+
+        expect(result.response).to eq("result" => "Success")
       end
     end
   end
