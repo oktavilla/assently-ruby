@@ -14,11 +14,11 @@ module Egree
     end
 
     def create_case signature_case
-      post "/createcasecommand", signature_case.to_json
+      post "/apiv1/createcasecommand", signature_case.to_json
     end
 
-    def post url, body = nil
-      response = make_post url, body
+    def post api_command, body = nil
+      response = make_post api_command, body
 
       if response.success?
         SuccessResult.new parse_response(response.body)

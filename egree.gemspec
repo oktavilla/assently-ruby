@@ -27,4 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "webmock", "~> 1.18.0"
+  spec.add_development_dependency "vcr", "~> 2.9.2"
+  spec.add_development_dependency "luhn", "~> 0.1.1"
 end

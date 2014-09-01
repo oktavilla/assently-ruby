@@ -1,9 +1,20 @@
 require "dotenv"
 require "webmock/rspec"
+require "vcr"
+require "uri"
 
 Dotenv.load
 
 WebMock.disable_net_connect!
+
+VCR.configure do |c|
+  c.cassette_library_dir = "spec/fixtures/cassettes"
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+
+  c.filter_sensitive_data("<EGREE_USERNAME>") { URI.encode_www_form_component ENV["EGREE_USERNAME"] }
+  c.filter_sensitive_data("<EGREE_PASSWORD>") { URI.encode_www_form_component ENV["EGREE_PASSWORD"] }
+end
 
 RSpec.configure do |config|
   config.order = :random
