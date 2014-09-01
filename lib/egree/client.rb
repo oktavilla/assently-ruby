@@ -13,6 +13,10 @@ module Egree
       self.environment = environment
     end
 
+    def create_case signature_case
+      post "/createcasecommand", signature_case.to_json
+    end
+
     def post url, body = nil
       response = make_post url, body
 

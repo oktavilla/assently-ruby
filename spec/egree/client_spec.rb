@@ -28,6 +28,18 @@ RSpec.describe Egree::Client do
     end
   end
 
+  describe "#create_case" do
+    it "sends the create case comamnd with a json representation of the case" do
+      allow(client).to receive :post
+
+      signature_case = double "Case", to_json: "case-json"
+
+      client.create_case signature_case
+
+      expect(client).to have_received(:post).with "/createcasecommand", "case-json"
+    end
+  end
+
   describe "#post" do
     it "it sends the json as the request body" do
       stub_request(:post, "https://admin:secret@app.egree.com/some/path").with({
