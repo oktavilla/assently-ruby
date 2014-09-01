@@ -1,4 +1,7 @@
+require "dotenv"
 require "webmock/rspec"
+
+Dotenv.load
 
 WebMock.disable_net_connect!
 
