@@ -1,3 +1,4 @@
+require "securerandom"
 require "egree/serializers/case"
 
 module Egree
