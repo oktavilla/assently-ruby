@@ -11,9 +11,15 @@ module Egree
       expect(signature_case.name).to eq "Agreement"
     end
 
+    specify ".generate_reference_id" do
+      expect(SecureRandom).to receive(:uuid).and_return "very-random"
+
+      expect(Case.generate_reference_id).to eq "very-random"
+    end
+
     describe "#reference_id" do
-      it "creates a unique uuid" do
-        expect(SecureRandom).to receive(:uuid).and_return "very-random"
+      it "creates a unique reference_id" do
+        expect(Case).to receive(:generate_reference_id).and_return "very-random"
 
         expect(signature_case.reference_id).to eq "very-random"
       end
@@ -57,6 +63,12 @@ module Egree
       signature_case.add_document document
 
       expect(signature_case.documents).to eq [document]
+    end
+
+    describe "#to_json" do
+      it "uses Serializers::Case" do
+        expect(signature_case.to_json).to eq Serializers::Case.serialize(signature_case)
+      end
     end
   end
 end

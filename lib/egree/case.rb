@@ -1,7 +1,13 @@
+require "egree/serializers/case"
+
 module Egree
   class Case
     def self.signature_types
       [ "sms", "electronicId", "touch" ]
+    end
+
+    def self.generate_reference_id
+      SecureRandom.uuid
     end
 
     attr_reader :name, :signature_types
@@ -12,7 +18,7 @@ module Egree
     end
 
     def reference_id
-      @reference_id ||= SecureRandom.uuid
+      @reference_id ||= self.class.generate_reference_id
     end
 
     def signature_types= signature_types
@@ -40,6 +46,10 @@ module Egree
 
     def documents
       @documents ||= []
+    end
+
+    def to_json
+      Serializers::Case.serialize self
     end
 
     private
