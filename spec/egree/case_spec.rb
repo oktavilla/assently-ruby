@@ -3,10 +3,30 @@ require "egree/case"
 
 module Egree
   RSpec.describe Case do
-    it "requires a name" do
-      signature_case = Case.new "Agreement", Case.signature_types
+    let :signature_case do
+      Case.new "Agreement", Case.signature_types
+    end
 
+    it "requires a name" do
       expect(signature_case.name).to eq "Agreement"
+    end
+
+    describe "#reference_id" do
+      it "creates a unique uuid" do
+        expect(SecureRandom).to receive(:uuid).and_return "very-random"
+
+        expect(signature_case.reference_id).to eq "very-random"
+      end
+
+      it "does not change the reference_id after created" do
+        last_id = signature_case.reference_id
+
+        expect(signature_case.reference_id).to eq last_id
+      end
+
+      it "does not share reference_id between instances" do
+        expect(signature_case.reference_id).to_not eq Case.new("Agreement", Case.signature_types).reference_id
+      end
     end
 
     describe "signature types" do

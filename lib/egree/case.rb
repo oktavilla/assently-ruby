@@ -11,6 +11,10 @@ module Egree
       self.signature_types = signature_types
     end
 
+    def reference_id
+      @reference_id ||= SecureRandom.uuid
+    end
+
     def signature_types= signature_types
       types = Array(signature_types)
 
