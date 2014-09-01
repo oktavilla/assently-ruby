@@ -18,7 +18,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Creating a case
+
+```
+  egree = Egree.client ENV["EGREE_USERNAME"], ENV["EGREE_PASSWORD"]
+
+  signature_case = Egree::Case.new "Agreement", ["touch"]
+  signature_case.add_party Egree::Party.new({
+    name: "First Last",
+    email: "name@example.com",
+    social_security_number: "8305010012"
+  })
+  signature_case.add_document Egree::Document.new "/some/path/file.pdf"
+
+  result = egree.create_case signature_case
+```
 
 ## Contributing
 
