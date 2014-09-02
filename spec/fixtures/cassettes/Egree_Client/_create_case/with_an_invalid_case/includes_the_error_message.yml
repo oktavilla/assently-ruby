@@ -7,7 +7,7 @@ http_interactions:
       encoding: UTF-8
       string: |-
         {
-          "CaseReferenceId": "3040790a-cc04-4e4b-a733-c7aacaac0835",
+          "CaseReferenceId": "dba8d40a-8949-4dde-83ce-ec75c7308d54",
           "Name": "Agreement",
           "Documents": [
             {
@@ -21,11 +21,7 @@ http_interactions:
             }
           ],
           "Parties": [
-            {
-              "Name": "First Last",
-              "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "9304302251"
-            }
+
           ],
           "AllowedSignatureTypes": [
             "touch"
@@ -42,26 +38,29 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 200
-      message: OK
+      code: 500
+      message: E041 At least one signer is required.
     headers:
       Cache-Control:
       - private, s-maxage=0
+      Content-Type:
+      - text/html; charset=utf-8
       Server:
       - Microsoft-IIS/7.5
       Strict-Transport-Security:
       - max-age=31536000
       Set-Cookie:
-      - ASP.NET_SessionId=fzuvyqbirjnpjg0impghai2y; path=/; HttpOnly
+      - ASP.NET_SessionId=jawbfcqk4u40ueq1b4lbw10u; path=/; HttpOnly
       X-Aspnet-Version:
       - 4.0.30319
       Date:
-      - Mon, 01 Sep 2014 20:07:40 GMT
+      - Mon, 01 Sep 2014 20:07:38 GMT
       Content-Length:
-      - '0'
+      - '104'
     body:
       encoding: UTF-8
-      string: ''
+      string: <html><body><h1>500 Internal server error</h1><p>E041 At least one signer
+        is required.</p></body></html>
     http_version: 
-  recorded_at: Mon, 01 Sep 2014 20:07:53 GMT
+  recorded_at: Mon, 01 Sep 2014 20:07:52 GMT
 recorded_with: VCR 2.9.2

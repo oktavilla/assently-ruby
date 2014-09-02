@@ -60,12 +60,6 @@ RSpec.describe Egree::Client do
 
         expect(result.success?).to be true
       end
-
-      it "parses the response" do
-        result = client.post "/some/path"
-
-        expect(result.response).to eq("result" => "Success")
-      end
     end
 
     describe "with a error response" do

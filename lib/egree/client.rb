@@ -21,7 +21,7 @@ module Egree
       response = make_post api_command, body
 
       if response.success?
-        SuccessResult.new parse_response(response.body)
+        SuccessResult.new
       else
         ErrorResult.new
       end
@@ -34,6 +34,7 @@ module Egree
     def connection
       Faraday.new "https://#{host}" do |conn|
         conn.adapter :net_http
+        conn.headers["Accept"] = "application/json"
         conn.basic_auth username, password
       end
     end
@@ -70,16 +71,18 @@ module Egree
     class SuccessResult
       attr_reader :response
 
-      def initialize response
-        @response = response
-      end
-
       def success?
         true
       end
     end
 
     class ErrorResult
+      attr_reader :errors
+
+      def initialize errors = []
+        @errors = Array(errors)
+      end
+
       def success?
         false
       end
