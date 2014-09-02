@@ -3,6 +3,10 @@ rvm:
 - 2.1.0
 - 2.0.0
 script: rspec spec
+addons:
+  code_climate:
+    repo_token:
+      secure: "Y3b1vSaq1qa9dMTbtftg1HzUrftWkx42F2yD/8ana0nUpg3b6xrvzx3LDiEPG1nLU4R7yk+KBr1dQH+skFl2LCJQpyfqwVvFhZz67S4a/8gQfYReTZDGJELMRP6HxbFbsSNisN11a3Kg3VIutBqyU9u1vSIMPx/o8ScvxVcAqHg="
 env:
   global:
   - secure: kvOTIZlz7fo7pspsOHdan3Fw7ACCF7yrRZvJYvMRGjhwB5HzSUjrCF0MNwpLM7oetxhnSSICBOIDAg/syj50tdkMWrdnBUhy583S5eEX0xyXGOytPRunXV4Y4094ecl3X1Y4Gl73Tnz2GHW8MUrRQq8fgDN9oElAvzP6HcAFdc0=
