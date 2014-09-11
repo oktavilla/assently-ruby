@@ -16,7 +16,7 @@ module Egree
         expect(Egree::Serializers::Document).to receive(:to_api_hash).with(document).and_return(document: "on")
 
         expect(Case.serialize(signature_case)).to eq JSON.pretty_generate({
-          "CaseReferenceId" => signature_case.reference_id,
+          "CaseReferenceId" => signature_case.reference_id.to_s,
           "Name" => "Agreement",
           "Documents" => [{ document: "on" }],
           "Parties" => [{ party: "on" }],

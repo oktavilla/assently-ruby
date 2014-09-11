@@ -1,4 +1,4 @@
-require "securerandom"
+require "egree/reference_id"
 require "egree/serializers/case"
 
 module Egree
@@ -8,7 +8,7 @@ module Egree
     end
 
     def self.generate_reference_id
-      SecureRandom.uuid
+      ReferenceId.generate
     end
 
     attr_reader :name, :signature_types
@@ -17,6 +17,8 @@ module Egree
       @name = name
       self.signature_types = signature_types
     end
+
+    attr_writer :reference_id
 
     def reference_id
       @reference_id ||= self.class.generate_reference_id

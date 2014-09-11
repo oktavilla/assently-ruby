@@ -12,7 +12,7 @@ module Egree
     end
 
     specify ".generate_reference_id" do
-      expect(SecureRandom).to receive(:uuid).and_return "very-random"
+      expect(Egree::ReferenceId).to receive(:generate).and_return "very-random"
 
       expect(Case.generate_reference_id).to eq "very-random"
     end

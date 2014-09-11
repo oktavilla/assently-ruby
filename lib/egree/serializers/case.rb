@@ -11,12 +11,11 @@ module Egree
 
       def self.to_api_hash signature_case
         {
-          "CaseReferenceId" => signature_case.reference_id,
           "Name" => signature_case.name,
           "Documents" => signature_case.documents.map { |document| Document.to_api_hash(document) },
           "Parties" => signature_case.parties.map { |party| Party.to_api_hash(party) },
           "AllowedSignatureTypes" => signature_case.signature_types
-        }
+        }.merge(signature_case.reference_id.to_api_hash)
       end
     end
   end
