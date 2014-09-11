@@ -69,7 +69,7 @@ RSpec.describe Egree::Client do
         })
       end
 
-      it "returns a success result" do
+      it "returns a error result" do
         result = client.post "/some/path"
 
         expect(result.success?).to be false

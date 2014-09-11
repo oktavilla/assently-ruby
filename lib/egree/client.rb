@@ -17,13 +17,17 @@ module Egree
       post "/apiv1/createcasecommand", signature_case.to_json
     end
 
+    def get_case_url reference_id
+      post "/apiv1/getviewcaseurlquery", reference_id.to_json
+    end
+
     def post api_command, body = nil
       response = make_post api_command, body
 
       if response.success?
-        SuccessResult.new
+        SuccessResult.new parse_success_response(response.body)
       else
-        ErrorResult.new
+        ErrorResult.new parse_error_response(response.body)
       end
     end
 
@@ -53,11 +57,17 @@ module Egree
       end
     end
 
-    def parse_response body
+    def parse_success_response body
       begin
         JSON.parse body
       rescue JSON::ParserError
         body
+      end
+    end
+
+    def parse_error_response body
+      if matches = body.match(/<p>(.*?)<\/p>/)
+        matches.captures
       end
     end
 
@@ -70,6 +80,10 @@ module Egree
 
     class SuccessResult
       attr_reader :response
+
+      def initialize response
+        @response = response
+      end
 
       def success?
         true
