@@ -84,7 +84,8 @@ RSpec.describe Egree::Client do
     describe "with a error response" do
       before do
         stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
-          status: 500
+          status: 500,
+          body: "<html><p>Error message</p><p>Another error</p></html>"
         })
       end
 
@@ -92,6 +93,12 @@ RSpec.describe Egree::Client do
         result = client.post "/some/path"
 
         expect(result.success?).to be false
+      end
+
+      it "parses the error messages from the html body" do
+        result = client.post "/some/path"
+
+        expect(result.errors).to eq [ "Error message", "Another error" ]
       end
     end
   end

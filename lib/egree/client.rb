@@ -66,9 +66,7 @@ module Egree
     end
 
     def parse_error_response body
-      if matches = body.match(/<p>(.*?)<\/p>/)
-        matches.captures
-      end
+      body.scan(/<p>(.*?)<\/p>/).flatten
     end
 
     def hosts
