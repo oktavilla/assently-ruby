@@ -1,45 +1,60 @@
-# Egree
-
-TODO: Write a gem description
-
 [![Build Status](https://travis-ci.org/joeljunstrom/egree-ruby.svg?branch=master)](https://travis-ci.org/joeljunstrom/egree-ruby)
 [![Code Climate](https://codeclimate.com/github/joeljunstrom/egree-ruby/badges/gpa.svg)](https://codeclimate.com/github/joeljunstrom/egree-ruby)
 
-## Installation
+# Egree
 
-Add this line to your application's Gemfile:
+Ruby client for the [Egree API](https://app.egree.com/apiv1).
 
-    gem 'egree'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install egree
+Currently the only supported actions is the `createcasecommand` and `getviewcaseurlquery`.
 
 ## Usage
 
 ### Creating a case
 
 ```
-  egree = Egree.client ENV["EGREE_USERNAME"], ENV["EGREE_PASSWORD"]
+  egree = Egree.client username, password
 
   signature_case = Egree::Case.new "Agreement", ["touch"]
   signature_case.add_party Egree::Party.new({
     name: "First Last",
     email: "name@example.com",
-    social_security_number: "8305010012"
+    social_security_number: "1234567890"
   })
   signature_case.add_document Egree::Document.new "/some/path/file.pdf"
 
   result = egree.create_case signature_case
+
+  if result.success?
+	puts "#{signature_case.reference_id} was created."
+  else 
+	puts "There was some issues with the case"
+	result.errors.each do |error|
+      puts error
+	end
+  end
 ```
+
+### Getting the signature url for a case
+
+```
+  egree = Egree.client username, password
+  result = egree.get_case_url "98d08cf5-d35d-403b-ac31-fa1ac85037a1"
+
+  if result.success?
+	puts "The url is: #{result.response}"
+  else
+	puts "Could not get signature url"
+	result.errors.each do |error|
+      puts error
+	end
+  end
+```
+  
+
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/egree/fork )
+1. Fork it ( http://github.com/joeljunstrom/egree/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

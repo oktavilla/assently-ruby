@@ -8,9 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Egree::VERSION
   spec.authors       = ["Joel Junström"]
   spec.email         = ["joel.junstrom@oktavilla.se"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Client for the Egree API}
+  spec.homepage      = "https://github.com/joeljunstrom/egree-ruby"
   spec.license       = "MIT"
 
   spec.required_ruby_version = "~> 2.0"
