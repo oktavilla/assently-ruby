@@ -23,8 +23,8 @@ module Egree
         expect(client).to have_received(:post).with "/apiv1/createcasecommand", "case-json"
       end
 
-      describe "with a valid case" do
-        it "returns a successful result object", vcr: true do
+      describe "with a valid case", vcr: { cassette_name: "Egree_Client/_create_case/valid_case" } do
+        it "returns a successful result object" do
           signature_case = Egree::Case.new "Agreement", ["touch"]
           signature_case.add_party Egree::Party.new_with_attributes({
             name: "First Last",
@@ -40,7 +40,7 @@ module Egree
       end
 
       describe "with an invalid case" do
-        it "returns a error result object", vcr: true do
+        it "returns a error result object", vcr: { cassette_name: "Egree_Client/_create_case/invalid_case" } do
           signature_case = Egree::Case.new "Agreement", ["touch"]
 
           result = client.create_case signature_case
