@@ -10,15 +10,17 @@ require "uri"
 
 Dotenv.load
 
-WebMock.disable_net_connect!
+WebMock.disable_net_connect! allow: "codeclimate.com"
 
-VCR.configure do |c|
-  c.cassette_library_dir = "spec/fixtures/cassettes"
-  c.hook_into :webmock
-  c.configure_rspec_metadata!
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/cassettes"
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
 
-  c.filter_sensitive_data("<EGREE_USERNAME>") { URI.encode_www_form_component ENV["EGREE_USERNAME"] }
-  c.filter_sensitive_data("<EGREE_PASSWORD>") { URI.encode_www_form_component ENV["EGREE_PASSWORD"] }
+  config.filter_sensitive_data("<EGREE_USERNAME>") { URI.encode_www_form_component ENV["EGREE_USERNAME"] }
+  config.filter_sensitive_data("<EGREE_PASSWORD>") { URI.encode_www_form_component ENV["EGREE_PASSWORD"] }
+
+  config.ignore_hosts "codeclimate.com"
 end
 
 RSpec.configure do |config|
