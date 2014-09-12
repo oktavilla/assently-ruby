@@ -55,10 +55,29 @@ RSpec.describe Egree::Client do
         })
       end
 
-      it "returns a success result" do
-        result = client.post "/some/path"
+      describe "result" do
+        it "is successfull" do
+          result = client.post "/some/path"
 
-        expect(result.success?).to be true
+          expect(result.success?).to be true
+        end
+
+        it "parses the response json" do
+          result = client.post "/some/path"
+
+          expect(result.response).to eq("result" => "Success")
+        end
+
+        it "handles simple string bodies" do
+          stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
+            status: 200,
+            body: "a string response"
+          })
+
+          result = client.post "/some/path"
+
+          expect(result.response).to eq "a string response"
+        end
       end
     end
 
