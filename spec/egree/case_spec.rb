@@ -64,11 +64,5 @@ module Egree
 
       expect(signature_case.documents).to eq [document]
     end
-
-    describe "#to_json" do
-      it "uses Serializers::Case" do
-        expect(signature_case.to_json).to eq Serializers::Case.serialize(signature_case)
-      end
-    end
   end
 end

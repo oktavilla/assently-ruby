@@ -1,20 +1,10 @@
 require "spec_helper"
-require "egree/serializers/document"
+require "egree/api_mappers/document_mapper"
 
 module Egree
-  module Serializers
-    RSpec.describe Document do
-      describe ".serialize" do
-        it "returns a json string of the api hash" do
-          document = double "Document"
-
-          expect(Document).to receive(:to_api_hash).with(document).and_return(document: "hash")
-
-          expect(Document.serialize(document)).to eq JSON.pretty_generate(document: "hash")
-        end
-      end
-
-      describe ".to_api_hash" do
+  module ApiMappers
+    RSpec.describe DocumentMapper do
+      describe ".to_api" do
         it "creates a hash that matches the api's expected format" do
           form_field = double "FormField"
 
@@ -26,12 +16,12 @@ module Egree
             form_fields: [form_field]
           })
 
-          expect(Egree::Serializers::FormField).to receive(:to_api_hash).with(form_field).and_return({
+          expect(Egree::ApiMappers::FormFieldMapper).to receive(:to_api).with(form_field).and_return({
             name: "FieldKey",
             value: "FieldValue"
           })
 
-          expect(Document.to_api_hash(document)).to eq({
+          expect(DocumentMapper.to_api(document)).to eq({
             "Filename" => "agreement.pdf",
             "Data" => "encoded-data",
             "ContentType" => "application/pdf",

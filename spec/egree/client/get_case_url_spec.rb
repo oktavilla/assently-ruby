@@ -13,14 +13,33 @@ module Egree
     end
 
     describe "#get_case_url" do
-      it "sends the getviewcaseurl query with the case reference id" do
-        allow(client).to receive :post
+      describe "with a reference_id as argument" do
+        it "sends the getviewcaseurl query with the case reference id json" do
+          allow(client).to receive :post
 
-        signature_case = double "Case", to_json: "reference-id-json"
+          reference_id = Egree::Case.generate_reference_id
 
-        client.get_case_url signature_case
+          expect(Egree::Serializers::ReferenceIdSerializer).to receive(:serialize).with(reference_id.to_s).and_return "reference-id-json"
 
-        expect(client).to have_received(:post).with "/apiv1/getviewcaseurlquery", "reference-id-json"
+          client.get_case_url reference_id
+
+          expect(client).to have_received(:post).with "/apiv1/getviewcaseurlquery", "reference-id-json"
+        end
+      end
+
+      describe "with a case as argument" do
+        it "sends the getviewcaseurl query with the case reference id json" do
+          allow(client).to receive :post
+
+          reference_id = double "Egree::ReferenceId"
+          signature_case = double "Egree::Case", reference_id: reference_id
+
+          expect(Egree::Serializers::ReferenceIdSerializer).to receive(:serialize).with(reference_id).and_return "reference-id-json"
+
+          client.get_case_url signature_case
+
+          expect(client).to have_received(:post).with "/apiv1/getviewcaseurlquery", "reference-id-json"
+        end
       end
 
       describe "when the case exists", vcr: { cassette_name: "Egree_Client/_get_case_url/case_exists" } do
