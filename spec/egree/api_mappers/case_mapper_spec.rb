@@ -16,7 +16,7 @@ module Egree
           signature_case.add_document document
 
           expect(Egree::Serializers::Party).to receive(:to_api_hash).with(party).and_return(party: "on")
-          expect(Egree::Serializers::Document).to receive(:to_api_hash).with(document).and_return(document: "on")
+          expect(Egree::ApiMappers::DocumentMapper).to receive(:to_api).with(document).and_return(document: "on")
 
           api_hash = CaseMapper.to_api signature_case
 
