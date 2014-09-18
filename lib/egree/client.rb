@@ -2,6 +2,7 @@ require "json"
 require "faraday"
 
 require "egree/serializers/case_serializer"
+require "egree/serializers/reference_id_serializer"
 
 module Egree
   class Client
@@ -20,8 +21,11 @@ module Egree
       post "/apiv1/createcasecommand", signature_case_json
     end
 
-    def get_case_url reference_id
-      post "/apiv1/getviewcaseurlquery", reference_id.to_json
+    def get_case_url signature_case
+      reference_id = signature_case.respond_to?(:reference_id) ? signature_case.reference_id : signature_case.to_s
+      reference_id_json = Egree::Serializers::ReferenceIdSerializer.serialize reference_id
+
+      post "/apiv1/getviewcaseurlquery", reference_id_json
     end
 
     def post api_command, body = nil

@@ -19,10 +19,6 @@ module Egree
       id.to_s
     end
 
-    def to_json
-      Serializers::ReferenceIdSerializer.serialize self
-    end
-
     def to_api_hash
       Serializers::ReferenceIdSerializer.to_api_hash self
     end

@@ -20,14 +20,6 @@ module Egree
         end
       end
 
-      describe "#to_json" do
-        it "uses Serializers::ReferenceId" do
-          reference_id = ReferenceId.new 123
-
-          expect(reference_id.to_json).to eq Serializers::ReferenceIdSerializer.serialize(reference_id)
-        end
-      end
-
       describe "#to_api_hash" do
         it "delegates to Serializers::ReferenceId" do
           reference_id = ReferenceId.new 123
