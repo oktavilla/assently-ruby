@@ -1,6 +1,8 @@
 require "json"
 require "faraday"
 
+require "egree/serializers/case_serializer"
+
 module Egree
   class Client
     attr_reader :username, :password
@@ -14,7 +16,8 @@ module Egree
     end
 
     def create_case signature_case
-      post "/apiv1/createcasecommand", signature_case.to_json
+      signature_case_json = Egree::Serializers::CaseSerializer.serialize signature_case
+      post "/apiv1/createcasecommand", signature_case_json
     end
 
     def get_case_url reference_id

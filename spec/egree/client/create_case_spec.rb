@@ -16,7 +16,9 @@ module Egree
       it "sends the create case comamnd with a json representation of the case" do
         allow(client).to receive :post
 
-        signature_case = double "Case", to_json: "case-json"
+        signature_case = double "Case"
+
+        expect(Egree::Serializers::CaseSerializer).to receive(:serialize).with(signature_case).and_return "case-json"
 
         client.create_case signature_case
 

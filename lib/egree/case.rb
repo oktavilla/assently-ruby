@@ -1,5 +1,4 @@
 require "egree/reference_id"
-require "egree/serializers/case"
 
 module Egree
   class Case
@@ -49,10 +48,6 @@ module Egree
 
     def documents
       @documents ||= []
-    end
-
-    def to_json
-      Serializers::Case.serialize self
     end
 
     private
