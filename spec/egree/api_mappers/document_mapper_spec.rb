@@ -16,7 +16,7 @@ module Egree
             form_fields: [form_field]
           })
 
-          expect(Egree::Serializers::FormField).to receive(:to_api_hash).with(form_field).and_return({
+          expect(Egree::ApiMappers::FormFieldMapper).to receive(:to_api).with(form_field).and_return({
             name: "FieldKey",
             value: "FieldValue"
           })

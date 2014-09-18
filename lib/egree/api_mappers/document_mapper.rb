@@ -1,4 +1,4 @@
-require "egree/serializers/form_field"
+require "egree/api_mappers/form_field_mapper"
 
 module Egree
   module ApiMappers
@@ -9,7 +9,9 @@ module Egree
           "Data" => document.data,
           "ContentType" => document.content_type,
           "Size" => document.size,
-          "FormFields" => document.form_fields.map { |form_field| Egree::Serializers::FormField.to_api_hash(form_field) }
+          "FormFields" => document.form_fields.map { |form_field|
+            Egree::ApiMappers::FormFieldMapper.to_api(form_field)
+          }
         }
       end
     end
