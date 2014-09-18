@@ -1,10 +1,12 @@
 require "json"
 
+require "egree/api_mappers/reference_id_mapper"
+
 module Egree
   module Serializers
-    module ReferenceId
+    module ReferenceIdSerializer
       def self.serialize reference_id
-        JSON.pretty_generate to_api_hash(reference_id)
+        JSON.pretty_generate Egree::ApiMappers::ReferenceIdMapper.to_api(reference_id)
       end
 
       def self.to_api_hash reference_id

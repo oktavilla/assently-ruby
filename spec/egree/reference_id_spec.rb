@@ -24,7 +24,7 @@ module Egree
         it "uses Serializers::ReferenceId" do
           reference_id = ReferenceId.new 123
 
-          expect(reference_id.to_json).to eq Serializers::ReferenceId.serialize(reference_id)
+          expect(reference_id.to_json).to eq Serializers::ReferenceIdSerializer.serialize(reference_id)
         end
       end
 
@@ -32,7 +32,7 @@ module Egree
         it "delegates to Serializers::ReferenceId" do
           reference_id = ReferenceId.new 123
 
-          expect(reference_id.to_api_hash).to eq Serializers::ReferenceId.to_api_hash(reference_id)
+          expect(reference_id.to_api_hash).to eq Serializers::ReferenceIdSerializer.to_api_hash(reference_id)
         end
       end
     end
