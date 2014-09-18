@@ -15,14 +15,6 @@ module Egree
           expect(ReferenceIdSerializer.serialize(reference_id)).to eq JSON.pretty_generate(reference_id: "value")
         end
       end
-
-      specify ".to_api_hash" do
-        reference_id = Egree::ReferenceId.new 123
-
-        expect(ReferenceIdSerializer.to_api_hash(reference_id)).to eq({
-          "CaseReferenceId" => "123"
-        })
-      end
     end
   end
 end

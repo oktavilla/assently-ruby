@@ -1,6 +1,7 @@
 require "json"
 require "egree/api_mappers/party_mapper"
 require "egree/api_mappers/document_mapper"
+require "egree/api_mappers/reference_id_mapper"
 
 module Egree
   module ApiMappers
@@ -15,7 +16,7 @@ module Egree
             Egree::ApiMappers::PartyMapper.to_api(party)
           },
           "AllowedSignatureTypes" => signature_case.signature_types
-        }.merge(signature_case.reference_id.to_api_hash)
+        }.merge(Egree::ApiMappers::ReferenceIdMapper.to_api(signature_case.reference_id))
       end
     end
   end

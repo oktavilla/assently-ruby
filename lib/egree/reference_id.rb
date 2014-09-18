@@ -1,5 +1,4 @@
 require "securerandom"
-require "egree/serializers/reference_id_serializer"
 
 module Egree
   class ReferenceId
@@ -17,10 +16,6 @@ module Egree
 
     def to_s
       id.to_s
-    end
-
-    def to_api_hash
-      Serializers::ReferenceIdSerializer.to_api_hash self
     end
 
     def <=> other

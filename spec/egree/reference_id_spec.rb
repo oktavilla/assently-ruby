@@ -19,14 +19,6 @@ module Egree
           expect(ReferenceId.new(123).to_s).to eq "123"
         end
       end
-
-      describe "#to_api_hash" do
-        it "delegates to Serializers::ReferenceId" do
-          reference_id = ReferenceId.new 123
-
-          expect(reference_id.to_api_hash).to eq Serializers::ReferenceIdSerializer.to_api_hash(reference_id)
-        end
-      end
     end
   end
 end
