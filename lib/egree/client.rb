@@ -16,8 +16,8 @@ module Egree
       self.environment = environment
     end
 
-    def create_case signature_case
-      signature_case_json = Egree::Serializers::CaseSerializer.serialize signature_case
+    def create_case signature_case, options = {}
+      signature_case_json = Egree::Serializers::CaseSerializer.serialize signature_case, options
       post "/apiv1/createcasecommand", signature_case_json
     end
 
