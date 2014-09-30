@@ -12,7 +12,6 @@ module Egree
         expect(ReferenceIdMapper.to_api(reference_id)).to eq({
           "CaseReferenceId" => "123"
         })
-
       end
     end
   end
