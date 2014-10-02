@@ -1,5 +1,6 @@
 require "json"
 require "egree/api_mappers/case_mapper"
+require "egree/api_mappers/case_options_mapper"
 
 module Egree
   module Serializers
