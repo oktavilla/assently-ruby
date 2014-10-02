@@ -1,16 +1,20 @@
 module Egree
   module ApiMappers
     module CaseOptionsMapper
-      def self.to_api options = {}, key_map = self.key_map
-        options.reduce({}) do |api_hash, (k, v)|
-          api_hash.merge(self.map_key(k, v, key_map)) if key_map.key?(k)
+      def self.to_api options = {}, mappers = self.mappers
+        options.reduce({}) do |api_hash, (client_key, value)|
+          if mappers.key?(client_key)
+            api_hash.merge(self.map(client_key, value, mappers))
+          else
+            api_hash
+          end
         end || {}
       end
 
       private
 
-      def self.map_key key, value, key_map = self.key_map
-        mapper = key_map[key]
+      def self.map client_key, value, mappers = self.mappers
+        mapper = mappers[client_key]
 
         if mapper.respond_to?(:call)
           mapper.call value
@@ -19,7 +23,7 @@ module Egree
         end
       end
 
-      def self.key_map
+      def self.mappers
         {
           postback_url: "CaseFinishedCallbackUrl",
           continue: ->(options) {

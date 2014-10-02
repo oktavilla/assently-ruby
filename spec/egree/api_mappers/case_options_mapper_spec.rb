@@ -11,7 +11,7 @@ module Egree
           })
         end
 
-        describe "continue_to" do
+        describe "continue" do
           it "translates name" do
             options = { continue: { name: "The label" } }
 
@@ -38,7 +38,12 @@ module Egree
         end
 
         it "ignores unknown keys" do
-          expect(CaseOptionsMapper.to_api(unknown: "Some value")).to eq({})
+          expect(CaseOptionsMapper.to_api({
+            postback_url: "http://example.com",
+            unknown: "Some value"
+          })).to eq({
+            "CaseFinishedCallbackUrl" => "http://example.com"
+          })
         end
       end
     end
