@@ -3,7 +3,7 @@ require "egree"
 
 RSpec.describe Egree do
   describe ".client" do
-    it "creates a Egree::Client" do
+    it "returns a Egree::Client" do
       expect(Egree.client("admin", "secret")).to be_kind_of Egree::Client
     end
 

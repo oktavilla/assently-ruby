@@ -17,10 +17,11 @@ module Egree
         allow(client).to receive :post
 
         signature_case = double "Case"
+        options = { postback_url: "http://example.com/postback" }
 
-        expect(Egree::Serializers::CaseSerializer).to receive(:serialize).with(signature_case).and_return "case-json"
+        expect(Egree::Serializers::CaseSerializer).to receive(:serialize).with(signature_case, options).and_return "case-json"
 
-        client.create_case signature_case
+        client.create_case signature_case, options
 
         expect(client).to have_received(:post).with "/apiv1/createcasecommand", "case-json"
       end
