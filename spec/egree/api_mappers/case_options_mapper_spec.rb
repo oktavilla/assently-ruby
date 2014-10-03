@@ -11,6 +11,22 @@ module Egree
           })
         end
 
+        describe "locale" do
+          it "translates locale to Culture allowing sv, fi and en" do
+            { "sv" => "sv-SE", "fi" => "fi-FI", "en" => "en-US" }.each do |key, locale|
+              expect(CaseOptionsMapper.to_api(locale: key)).to eq({
+                "Culture" => locale
+              })
+            end
+          end
+
+          it "raises an InvalidCaseOptionError for unkown locales" do
+            expect{ CaseOptionsMapper.to_api(locale: "unknown") }.to raise_error{
+              Egree::InvalidCaseOptionError
+            }
+          end
+        end
+
         describe "continue" do
           it "translates name" do
             options = { continue: { name: "The label" } }
