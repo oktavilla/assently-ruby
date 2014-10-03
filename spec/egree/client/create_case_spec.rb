@@ -36,7 +36,15 @@ module Egree
           })
           signature_case.add_document Egree::Document.new(File.join(Dir.pwd, "spec/fixtures/agreement.pdf"))
 
-          result = client.create_case signature_case
+          result = client.create_case(signature_case, {
+            postback_url: "http://example.com/postback",
+            continue: {
+              name: "Back to the site",
+              url: "http://example.com/thanks",
+              auto: true
+            },
+            locale: "sv"
+          })
 
           expect(result.success?).to be true
         end

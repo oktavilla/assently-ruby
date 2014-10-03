@@ -23,13 +23,18 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "4503089239"
+              "SocialSecurityNumber": "5212172760"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
           ],
-          "CaseReferenceId": "6c99f997-6115-4524-af93-791fe4e626dd"
+          "CaseReferenceId": "238c0cc3-8c66-4ff4-bf75-65ee264b1001",
+          "CaseFinishedCallbackUrl": "http://example.com/postback",
+          "ContinueName": "Back to the site",
+          "ContinueUrl": "http://example.com/thanks",
+          "ContinueAuto": true,
+          "Culture": "sv-SE"
         }
     headers:
       Accept:
@@ -52,16 +57,16 @@ http_interactions:
       Strict-Transport-Security:
       - max-age=31536000
       Set-Cookie:
-      - ASP.NET_SessionId=ondwcvli0qi5bildy5olrlvh; path=/; HttpOnly
+      - ASP.NET_SessionId=xlsxyoeej5dfrorj3uwk2tzc; path=/; HttpOnly
       X-Aspnet-Version:
       - 4.0.30319
       Date:
-      - Fri, 12 Sep 2014 10:06:24 GMT
+      - Fri, 03 Oct 2014 09:12:40 GMT
       Content-Length:
       - '0'
     body:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 12 Sep 2014 10:06:26 GMT
+  recorded_at: Fri, 03 Oct 2014 09:13:19 GMT
 recorded_with: VCR 2.9.2
