@@ -1,11 +1,16 @@
 require "open-uri"
 
 module Egree
-  class Document
-    attr_reader :path
+  class CouldNotFetchDocumentError < StandardError
+  end
 
-    def initialize path
+  class Document
+    attr_reader :path, :username, :password
+
+    def initialize path, username: nil, password: nil
       @path = path
+      @username = username
+      @password = password
     end
 
     def filename
@@ -39,7 +44,19 @@ module Egree
     end
 
     def file
-      open path
+      begin
+        open path, authentication_params
+      rescue OpenURI::HTTPError => error
+        raise Egree::CouldNotFetchDocumentError.new("Could not get url #{path} (#{error.message})")
+      end
+    end
+
+    def authentication_params
+      if username && password
+        { http_basic_authentication: [ username, password ] }
+      else
+        {}
+      end
     end
   end
 end

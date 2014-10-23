@@ -30,12 +30,18 @@ module Egree
     end
 
     describe "#with an url" do
-      before do
-        fixture_path = File.join(Dir.pwd, "spec/fixtures/agreement.pdf")
+      let :fixture_path do
+        File.join(Dir.pwd, "spec/fixtures/agreement.pdf")
+      end
 
+      let :fixture_contents do
+        File.read(fixture_path)
+      end
+
+      before do
         stub_request(:get, "http://example.com/files/remote_agreement.pdf").to_return({
           status: 200,
-          body: File.read(fixture_path)
+          body: fixture_contents
         })
       end
 
@@ -57,7 +63,48 @@ module Egree
 
       it "has the file data encoded as base64" do
         fixture_path = File.join(Dir.pwd, "spec/fixtures/agreement.pdf")
-        expect(document.data).to eq Base64.encode64(File.open(fixture_path).read)
+        expect(document.data).to eq Base64.encode64(fixture_contents)
+      end
+
+      describe "that is protected by basic authentication" do
+        describe "with valid credentials" do
+          let :url do
+            "example.com/files/protected_file.pdf"
+          end
+
+          before do
+            stub_request(:get, "test-user:secret@#{url}").to_return({
+              status: 200,
+              body: "the-body"
+            })
+          end
+
+          it "returns the document" do
+            document = Document.new("http://#{url}", username: "test-user", password: "secret")
+
+            expect(document.data).to eq Base64.encode64("the-body")
+          end
+        end
+
+        describe "with invalid credentials" do
+          let :url do
+            "http://example.com/files/protected_file.pdf"
+          end
+
+          before do
+            stub_request(:get, url).to_return({
+              status: [401, "Unauthorized"]
+            })
+          end
+
+          it "throws a informative error if it cannot authenticate" do
+            document = Document.new(url)
+
+            expect{
+              document.size
+            }.to raise_error(Egree::CouldNotFetchDocumentError, /#{url}/)
+          end
+        end
       end
     end
 

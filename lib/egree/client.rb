@@ -44,9 +44,9 @@ module Egree
 
     def connection
       Faraday.new "https://#{host}" do |conn|
-        conn.adapter :net_http
         conn.headers["Accept"] = "application/json"
         conn.basic_auth username, password
+        conn.adapter :net_http
       end
     end
 
