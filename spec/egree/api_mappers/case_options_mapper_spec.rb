@@ -11,6 +11,18 @@ module Egree
           })
         end
 
+        it "translates cancel_url to CancelUrl" do
+          expect(CaseOptionsMapper.to_api(cancel_url: "http://example.com")).to eq({
+            "CancelUrl" => "http://example.com"
+          })
+        end
+
+        it "translates procedure to Procedure" do
+          expect(CaseOptionsMapper.to_api(procedure: "form")).to eq({
+            "Procedure" => "form"
+          })
+        end
+
         describe "locale" do
           it "translates locale to Culture allowing sv, fi and en" do
             { "sv" => "sv-SE", "fi" => "fi-FI", "en" => "en-US" }.each do |key, locale|

@@ -43,6 +43,8 @@ module Egree
               url: "http://example.com/thanks",
               auto: true
             },
+            cancel_url: "http://example.com/sorry",
+            procedure: "form",
             locale: "sv"
           })
 

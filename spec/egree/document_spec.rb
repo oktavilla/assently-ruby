@@ -7,6 +7,11 @@ module Egree
       File.join(Dir.pwd, "spec/fixtures/agreement.pdf")
     end
 
+    let :fixture_contents do
+      File.read(fixture_path)
+    end
+
+
     describe "with a local file" do
       let :document do
         Document.new fixture_path
@@ -30,14 +35,6 @@ module Egree
     end
 
     describe "#with an url" do
-      let :fixture_path do
-        File.join(Dir.pwd, "spec/fixtures/agreement.pdf")
-      end
-
-      let :fixture_contents do
-        File.read(fixture_path)
-      end
-
       before do
         stub_request(:get, "http://example.com/files/remote_agreement.pdf").to_return({
           status: 200,
@@ -62,7 +59,6 @@ module Egree
       end
 
       it "has the file data encoded as base64" do
-        fixture_path = File.join(Dir.pwd, "spec/fixtures/agreement.pdf")
         expect(document.data).to eq Base64.encode64(fixture_contents)
       end
 
@@ -109,7 +105,7 @@ module Egree
     end
 
     it "adds form fields"  do
-      document = Document.new fixture_path
+      document = Document.new fixture_contents
       form_field = double "FormField", name: "FieldName", value: "Some Value"
 
       document.add_form_field form_field

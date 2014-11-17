@@ -36,6 +36,8 @@ module Egree
       def self.mappers
         {
           postback_url: "CaseFinishedCallbackUrl",
+          cancel_url: "CancelUrl",
+          procedure: "Procedure",
           locale: ->(value) {
             { "Culture" => LOCALES.call(value) }
           },
