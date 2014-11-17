@@ -17,8 +17,16 @@ module Egree
         Document.new fixture_path
       end
 
-      specify "#filename" do
-        expect(document.filename).to eq "agreement.pdf"
+      describe "#filename" do
+        it "defaults to the file's basename" do
+          expect(document.filename).to eq "agreement.pdf"
+        end
+
+        it "can be set in the constructor" do
+          document = Document.new fixture_path, filename: "special-agreement.pdf"
+
+          expect(document.filename).to eq "special-agreement.pdf"
+        end
       end
 
       specify "#size" do

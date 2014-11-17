@@ -5,16 +5,17 @@ module Egree
   end
 
   class Document
-    attr_reader :path, :username, :password
+    attr_reader :path, :filename, :username, :password
 
-    def initialize path, username: nil, password: nil
+    def initialize path, filename: nil, username: nil, password: nil
       @path = path
+      @filename = filename
       @username = username
       @password = password
     end
 
     def filename
-      File.basename path
+      @filename || File.basename(path)
     end
 
     def size
