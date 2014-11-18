@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Joel Junström"]
   spec.email         = ["joel.junstrom@oktavilla.se"]
   spec.summary       = %q{Client for the Egree API}
-  spec.homepage      = "https://github.com/joeljunstrom/egree-ruby"
+  spec.homepage      = "https://github.com/Oktavilla/egree-ruby"
   spec.license       = "MIT"
 
   spec.required_ruby_version = "~> 2.0"
