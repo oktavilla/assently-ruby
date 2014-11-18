@@ -25,11 +25,18 @@ signature_case.add_party Egree::Party.new_with_attributes({
 signature_case.add_document Egree::Document.new "/some/path/file.pdf"
 
 result = egree.create_case(signature_case, {
+  # Egree sends a POST with the signed case as the JSON body when the signing process is finished.
   postback_url: "https://example.com/my-endpoint",
   continue: {
+    # user ends up here after finishing the signing process
     url: "http://example.com/user-endpoint",
     auto: true
-  }
+  },
+  # User ends up here when cancelling, at the moment there is no cancel callback
+  cancel_url: "http://example.com/user-canceled",
+  # Procedure can be ”default” or ”form”, this changes some copy in the Egree interface.
+  # defaults to ”default”
+  procedure: "form"
 })
 
 if result.success?
