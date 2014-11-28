@@ -32,9 +32,9 @@ module Egree
       response = make_post api_command, body
 
       if response.success?
-        SuccessResult.new parse_success_response(response.body)
+        SuccessResult.new response.body
       else
-        ErrorResult.new parse_error_response(response.body)
+        ErrorResult.new response.body
       end
     end
 
@@ -64,18 +64,6 @@ module Egree
       end
     end
 
-    def parse_success_response body
-      begin
-        JSON.parse body
-      rescue JSON::ParserError
-        body
-      end
-    end
-
-    def parse_error_response body
-      body.scan(/<p>(.*?)<\/p>/).flatten
-    end
-
     def hosts
       {
         production: "app.egree.com",
@@ -84,10 +72,18 @@ module Egree
     end
 
     class SuccessResult
-      attr_reader :response
+      attr_reader :raw
 
       def initialize response
-        @response = response
+        @raw = response
+      end
+
+      def response
+        begin
+          JSON.parse raw
+        rescue JSON::ParserError
+          raw
+        end
       end
 
       def success?
@@ -96,10 +92,14 @@ module Egree
     end
 
     class ErrorResult
-      attr_reader :errors
+      attr_reader :raw
 
-      def initialize errors = []
-        @errors = Array(errors)
+      def initialize response
+        @raw = response
+      end
+
+      def errors
+        Array(raw.to_s.scan(/<p>(.*?)<\/p>/).flatten)
       end
 
       def success?

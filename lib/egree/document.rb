@@ -5,7 +5,7 @@ module Egree
   end
 
   class Document
-    attr_reader :path, :filename, :username, :password
+    attr_reader :path, :username, :password
 
     def initialize path, filename: nil, username: nil, password: nil
       @path = path

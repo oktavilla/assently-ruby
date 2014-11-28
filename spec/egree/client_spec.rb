@@ -68,6 +68,12 @@ RSpec.describe Egree::Client do
           expect(result.response).to eq("result" => "Success")
         end
 
+        it "exposes the raw response" do
+          result = client.post "/some/path"
+
+          expect(result.raw).to eq('{ "result": "Success" }')
+        end
+
         it "handles simple string bodies" do
           stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
             status: 200,
@@ -99,6 +105,12 @@ RSpec.describe Egree::Client do
         result = client.post "/some/path"
 
         expect(result.errors).to eq [ "Error message", "Another error" ]
+      end
+
+      it "exposes the raw response" do
+        result = client.post "/some/path"
+
+        expect(result.raw).to eq("<html><p>Error message</p><p>Another error</p></html>")
       end
     end
   end
