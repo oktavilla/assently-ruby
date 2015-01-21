@@ -67,7 +67,7 @@ module Egree
     def hosts
       {
         production: "app.egree.com",
-        test: "test.underskrift.se"
+        test: "test.egree.com"
       }
     end
 
@@ -99,7 +99,11 @@ module Egree
       end
 
       def errors
-        Array(raw.to_s.scan(/<p>(.*?)<\/p>/).flatten)
+        begin
+          Array(JSON.parse(raw)["error"].values.join(" "))
+        rescue JSON::ParserError
+          raw
+        end
       end
 
       def success?

@@ -17,7 +17,7 @@ RSpec.describe Egree::Client do
     end
 
     it "can be set to the test environment" do
-      test_host = "test.underskrift.se"
+      test_host = "test.egree.com"
 
       expect(Egree::Client.new("admin", "secret", :test).host).to eq test_host
 
@@ -90,8 +90,8 @@ RSpec.describe Egree::Client do
     describe "with a error response" do
       before do
         stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
-          status: 500,
-          body: "<html><p>Error message</p><p>Another error</p></html>"
+          status: 400,
+          body: '{"error":{"errorCode":"E041","message":"At least one signer is required."}}'
         })
       end
 
@@ -104,13 +104,13 @@ RSpec.describe Egree::Client do
       it "parses the error messages from the html body" do
         result = client.post "/some/path"
 
-        expect(result.errors).to eq [ "Error message", "Another error" ]
+        expect(result.errors).to eq [ "E041 At least one signer is required." ]
       end
 
       it "exposes the raw response" do
         result = client.post "/some/path"
 
-        expect(result.raw).to eq("<html><p>Error message</p><p>Another error</p></html>")
+        expect(result.raw).to eq('{"error":{"errorCode":"E041","message":"At least one signer is required."}}')
       end
     end
   end

@@ -61,7 +61,7 @@ module Egree
           it "has the url as the response" do
             result = client.get_case_url reference_id
 
-            expect(result.response).to match "https://test.underskrift.se"
+            expect(result.response).to match "https://test.egree.com"
           end
         end
       end
