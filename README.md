@@ -16,7 +16,9 @@ Currently the only supported api calls is `createcasecommand` and `getviewcaseur
 ```ruby
 egree = Egree.client username, password
 
-signature_case = Egree::Case.new "Agreement", ["touch"]
+case_id = SecureRandom.uuid
+
+signature_case = Egree::Case.new "Agreement", ["electronicid", "sms"], case_id: case_id
 signature_case.add_party Egree::Party.new_with_attributes({
   name: "First Last",
   email: "name@example.com",
@@ -25,6 +27,10 @@ signature_case.add_party Egree::Party.new_with_attributes({
 signature_case.add_document Egree::Document.new "/some/path/file.pdf"
 
 result = egree.create_case(signature_case, {
+  send_sign_request_email_to_parties: true,
+  send_finish_email_to_creator: true,
+  send_finish_email_to_parties: true,
+  send_recall_email_to_parties: true,
   # Egree sends a POST with the signed case as the JSON body when the signing process is finished.
   postback_url: "https://example.com/my-endpoint",
   continue: {
