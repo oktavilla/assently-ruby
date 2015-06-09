@@ -18,14 +18,12 @@ module Egree
 
     def create_case signature_case, options = {}
       signature_case_json = Egree::Serializers::CaseSerializer.serialize signature_case, options
-      post "/apiv1/createcasecommand", signature_case_json
+
+      post "/api/v2/createcase", signature_case_json
     end
 
-    def get_case_url signature_case
-      reference_id = signature_case.respond_to?(:reference_id) ? signature_case.reference_id : signature_case.to_s
-      reference_id_json = Egree::Serializers::ReferenceIdSerializer.serialize reference_id
-
-      post "/apiv1/getviewcaseurlquery", reference_id_json
+    def send_case(id)
+      post "/api/v2/sendcase", JSON.pretty_generate({ id: id })
     end
 
     def post api_command, body = nil
