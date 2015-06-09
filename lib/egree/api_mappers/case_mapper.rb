@@ -8,7 +8,9 @@ module Egree
     module CaseMapper
       def self.to_api signature_case
         {
+          "Id" => signature_case.case_id || SecureRandom.uuid,
           "Name" => signature_case.name,
+          "NameAlias" => SecureRandom.uuid,
           "Documents" => signature_case.documents.map { |document|
             Egree::ApiMappers::DocumentMapper.to_api(document)
           },
