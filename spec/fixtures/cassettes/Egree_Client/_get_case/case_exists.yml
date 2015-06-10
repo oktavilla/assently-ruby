@@ -2,12 +2,14 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/apiv1/createcasecommand
+    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-
         {
+          "Id": "c1a45d94-389d-4ea2-8d60-59a0026d62d6",
           "Name": "Agreement",
+          "NameAlias": "2db0cfde-39f8-4e62-8158-14d10bf5fef6",
           "Documents": [
             {
               "Filename": "agreement.pdf",
@@ -23,13 +25,13 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "3303016376"
+              "SocialSecurityNumber": "8804235615"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
           ],
-          "CaseReferenceId": "dcb8dde2-88d6-4a5a-b27b-c6d3814f0709"
+          "CaseReferenceId": "3b0179a0-fa38-4ccb-ac2d-8a0dd6ce79ae"
         }
     headers:
       Accept:
@@ -47,12 +49,10 @@ http_interactions:
     headers:
       Cache-Control:
       - private, s-maxage=0
-      X-Frame-Options:
-      - SAMEORIGIN
       Set-Cookie:
-      - sid=wewvturo01jxoo0q2be0cilo; path=/; HttpOnly; Secure
+      - sid=30lhffpms5bj4dk4bbzhapce; path=/; HttpOnly; Secure
       Date:
-      - Fri, 13 May 2016 13:43:12 GMT
+      - Wed, 10 Jun 2015 09:37:56 GMT
       Content-Length:
       - '0'
       Strict-Transport-Security:
@@ -61,15 +61,15 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 13 May 2016 13:42:49 GMT
+  recorded_at: Wed, 10 Jun 2015 09:37:57 GMT
 - request:
     method: post
-    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/apiv1/getviewcaseurlquery
+    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/getcase
     body:
       encoding: UTF-8
       string: |-
         {
-          "CaseReferenceId": "dcb8dde2-88d6-4a5a-b27b-c6d3814f0709"
+          "id": "3b0179a0-fa38-4ccb-ac2d-8a0dd6ce79ae"
         }
     headers:
       Accept:
@@ -82,26 +82,24 @@ http_interactions:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
     status:
-      code: 200
-      message: OK
+      code: 400
+      message: E056 Invalid reference id.
     headers:
       Cache-Control:
       - private, s-maxage=0
       Content-Type:
       - text/html; charset=utf-8
-      X-Frame-Options:
-      - SAMEORIGIN
       Set-Cookie:
-      - sid=aw1lrvlrpee50gyt00b4ikct; path=/; HttpOnly; Secure
+      - sid=bppu4vbppsmxjnmpyg5csx4f; path=/; HttpOnly; Secure
       Date:
-      - Fri, 13 May 2016 13:43:12 GMT
+      - Wed, 10 Jun 2015 09:37:56 GMT
       Content-Length:
-      - '109'
+      - '64'
       Strict-Transport-Security:
       - max-age=31536000
     body:
       encoding: UTF-8
-      string: https://test.assently.com/c/IJ90hzR70wiT4ArWKOLQ-ElD-aJBEw2y0eRIWaFz/IJ90hzR70witsrz56KuTJyHa7OHjgjCqXKgEWERB
+      string: '{"error":{"errorCode":"E056","message":"Invalid reference id."}}'
     http_version: 
-  recorded_at: Fri, 13 May 2016 13:42:49 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Wed, 10 Jun 2015 09:37:57 GMT
+recorded_with: VCR 2.9.3
