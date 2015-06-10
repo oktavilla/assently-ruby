@@ -10,7 +10,7 @@ module Egree
   describe Egree::Client do
     describe "#create_case" do
       let :client do
-        Egree::Client.new ENV["EGREE_USERNAME"], ENV["EGREE_PASSWORD"], :test
+        Egree::Client.new ENV["EGREE_API_KEY"], ENV["EGREE_API_SECRET"], :test
       end
 
       it "sends the create case comamnd with a json representation of the case" do
@@ -23,7 +23,7 @@ module Egree
 
         client.create_case signature_case, options
 
-        expect(client).to have_received(:post).with "/apiv1/createcasecommand", "case-json"
+        expect(client).to have_received(:post).with "/api/v2/createcase", "case-json"
       end
 
       describe "with a valid case", vcr: { cassette_name: "Egree_Client/_create_case/valid_case" } do
