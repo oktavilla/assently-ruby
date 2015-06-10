@@ -61,7 +61,7 @@ module Egree
           it "has the error" do
             result = client.get_case "missing-case"
 
-            expect(result.errors[0]).to eq "E030 User is not creator of case."
+            expect(result.errors[0]).to eq "EX404 Not Found Request parameters may not be well formed"
           end
         end
       end
