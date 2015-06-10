@@ -21,8 +21,6 @@ module Egree
           case_id = SecureRandom.uuid
           serialized_json = "{\n  \"id\": \"#{case_id}\"\n}"
 
-          expect(Egree::Serializers::ReferenceIdSerializer).to receive(:serialize).with(case_id.to_s).and_return "reference_id"
-
           client.get_case case_id
 
           expect(client).to have_received(:post).with "/api/v2/getcase", serialized_json
