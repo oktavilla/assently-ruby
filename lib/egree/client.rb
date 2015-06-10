@@ -26,6 +26,10 @@ module Egree
       post "/api/v2/sendcase", JSON.pretty_generate({ id: id })
     end
 
+    def get_case(id)
+      post "/api/v2/getcase", JSON.pretty_generate({ id: id })
+    end
+
     def post api_command, body = nil
       response = make_post api_command, body
 

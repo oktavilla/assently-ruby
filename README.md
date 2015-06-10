@@ -14,11 +14,11 @@ Currently the only supported api calls is `createcasecommand` and `getviewcaseur
 ### Creating a case
 
 ```ruby
-egree = Egree.client username, password
+egree = Egree.client egree_api_key, egree_api_secret
 
 case_id = SecureRandom.uuid
 
-signature_case = Egree::Case.new "Agreement", ["electronicid", "sms"], case_id: case_id
+signature_case = Egree::Case.new "Agreement", ["electronicid"], case_id: case_id
 signature_case.add_party Egree::Party.new_with_attributes({
   name: "First Last",
   email: "name@example.com",
@@ -27,10 +27,6 @@ signature_case.add_party Egree::Party.new_with_attributes({
 signature_case.add_document Egree::Document.new "/some/path/file.pdf"
 
 result = egree.create_case(signature_case, {
-  send_sign_request_email_to_parties: true,
-  send_finish_email_to_creator: true,
-  send_finish_email_to_parties: true,
-  send_recall_email_to_parties: true,
   # Egree sends a POST with the signed case as the JSON body when the signing process is finished.
   postback_url: "https://example.com/my-endpoint",
   continue: {
@@ -63,6 +59,11 @@ result = egree.get_case_url "98d08cf5-d35d-403b-ac31-fa1ac85037a1"
 
 if result.success?
   puts "The url is: #{result.response}"
+  egree.send_case case_id
+  
+  signing_case = egree.get_case case_id
+  
+  puts "Sign here: #{signing_case.response["Parties"].first["PartyUrl"]}"
 else
   puts "Could not get signature url"
   result.errors.each do |error|
