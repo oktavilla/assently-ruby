@@ -7,7 +7,20 @@
 
 Ruby client for the [Assently API](https://app.assently.com/apiv1).
 
-Currently the only supported api calls is `createcasecommand` and `getviewcaseurlquery`.
+__You're on branch api/v2, if you want to use apiv1, checkout [master](https://github.com/kollegorna/egree-ruby/tree/master).__
+
+Ruby client for the [Egree API V2](https://app.egree.com/api).
+
+Currently the only supported api calls is `createcase`, `sendcase` and `getcase`.
+
+### Note
+If you miss `getviewcaseurlquery`, this is how you can get the view case url.
+
+```
+signing_case = egree.get_case case_id
+signing_case.response["Parties"].first["PartyUrl"] # Each party gets their own url
+
+```
 
 ## Usage
 
@@ -87,6 +100,10 @@ Please adhere to the coding standards used in the project and add tests.
 Create a .env file in the root directory to run the integration tests against your Egree environment.
 
 ```yaml
-EGREE_USERNAME=your-username
-EGREE_PASSWORD=your-password
+EGREE_API_KEY=your-api-key
+EGREE_API_SECRET=your-api-secret
 ```
+
+You can get them here: ```https://test.egree.com/a/account/api```
+
+
