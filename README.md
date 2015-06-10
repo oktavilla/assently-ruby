@@ -66,7 +66,7 @@ end
 
 ```ruby
 egree = Egree.client username, password
-result = egree.get_case_url "98d08cf5-d35d-403b-ac31-fa1ac85037a1"
+result = egree.get_case case_id
 
 if result.success?
   puts "The url is: #{result.response}"
