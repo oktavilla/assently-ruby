@@ -1,4 +1,5 @@
 require "luhn"
+require "securerandom"
 require "spec_helper"
 
 require "egree/client"
@@ -13,57 +14,40 @@ module Egree
     end
 
     describe "#get_case" do
-      describe "with a reference_id as argument" do
-        it "sends the getcase query with the case reference id json" do
+      describe "with a case_id as argument" do
+        it "sends the getcase query with the case id json" do
           allow(client).to receive :post
 
-          reference_id = Egree::Case.generate_reference_id
-          serialized_json = "{\n  \"id\": \"#{reference_id}\"\n}"
+          case_id = SecureRandom.uuid
+          serialized_json = "{\n  \"id\": \"#{case_id}\"\n}"
 
-          expect(Egree::Serializers::ReferenceIdSerializer).to receive(:serialize).with(reference_id.to_s).and_return "reference_id"
+          expect(Egree::Serializers::ReferenceIdSerializer).to receive(:serialize).with(case_id.to_s).and_return "reference_id"
 
-          client.get_case reference_id
-
-          expect(client).to have_received(:post).with "/api/v2/getcase", serialized_json
-        end
-      end
-
-      describe "with a case as argument" do
-        it "sends the getviewcaseurl query with the case reference id json" do
-          allow(client).to receive :post
-
-          reference_id = double "Egree::ReferenceId"
-          signature_case = double "Egree::Case", reference_id: reference_id
-          serialized_json = "{\n  \"id\": \"#{reference_id}\"\n}"
-
-          expect(Egree::Serializers::ReferenceIdSerializer).to receive(:serialize).with(reference_id).and_return "reference-id"
-
-          client.get_case signature_case
+          client.get_case case_id
 
           expect(client).to have_received(:post).with "/api/v2/getcase", serialized_json
         end
       end
 
       describe "when the case exists", vcr: { cassette_name: "Egree_Client/_get_case/case_exists" } do
-        let :reference_id do
-          Egree::Case.generate_reference_id
-        end
+        let (:case_id) { SecureRandom.uuid }
 
         before do
-          create_case reference_id
+          create_case case_id
         end
 
         describe "result" do
-          it "is successfull" do
-            result = client.get_case reference_id
+          it "is successful" do
+            result = client.get_case case_id
 
             expect(result.success?).to be true
           end
 
-          it "has the url as the response" do
-            result = client.get_case reference_id
+          it "has the url" do
+            result = client.get_case case_id
 
-            expect(result.response).to match "https://test.assently.com"
+            expect(result).to be_a Egree::Client::SuccessResult
+            expect(result.response["Parties"].first["PartyUrl"]).to match(/\Ahttps:\/\/test.assently.com\/c\/.*\z/)
           end
         end
       end
@@ -87,16 +71,14 @@ module Egree
 
     private
 
-    def create_case reference_id = nil
-      signature_case = Egree::Case.new "Agreement", ["touch"], case_id: reference_id
+    def create_case case_id = nil
+      signature_case = Egree::Case.new "Agreement", ["touch"], case_id: case_id
       signature_case.add_party Egree::Party.new_with_attributes({
         name: "First Last",
         email: "name@example.com",
         social_security_number: Luhn::CivicNumber.generate
       })
       signature_case.add_document Egree::Document.new(File.join(Dir.pwd, "spec/fixtures/agreement.pdf"))
-
-      signature_case.reference_id = reference_id if reference_id
 
       client.create_case signature_case
     end

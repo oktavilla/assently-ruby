@@ -28,9 +28,9 @@ http_interactions:
       Content-Type:
       - text/html; charset=utf-8
       Set-Cookie:
-      - sid=5yhkemy2hh4g4ujnlejjw115; path=/; HttpOnly; Secure
+      - sid=h13ppy4rz1gprmw5x3k5a01z; path=/; HttpOnly; Secure
       Date:
-      - Wed, 10 Jun 2015 09:37:55 GMT
+      - Wed, 10 Jun 2015 10:15:50 GMT
       Content-Length:
       - '104'
       Strict-Transport-Security:
@@ -40,5 +40,5 @@ http_interactions:
       string: '{"error":{"errorCode":"EX404","message":"Not Found","hint":"Request
         parameters may not be well formed"}}'
     http_version: 
-  recorded_at: Wed, 10 Jun 2015 09:37:56 GMT
+  recorded_at: Wed, 10 Jun 2015 10:15:50 GMT
 recorded_with: VCR 2.9.3
