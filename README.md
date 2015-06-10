@@ -9,7 +9,7 @@
 
 Ruby client for the [Egree API V2](https://app.egree.com/apiv2).
 
-Currently the only supported api calls is `createcase`, `sendcase` and `getcase`.
+Currently the only supported api calls are `createcase`, `sendcase` and `getcase`.
 
 ### Note
 If you miss `getviewcaseurlquery`, this is how you can get the view case url.
