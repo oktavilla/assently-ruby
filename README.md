@@ -9,7 +9,7 @@ Ruby client for the [Assently API](https://app.assently.com/apiv1).
 
 __You're on branch api/v2, if you want to use apiv1, checkout [master](https://github.com/kollegorna/egree-ruby/tree/master).__
 
-Ruby client for the [Egree API V2](https://app.egree.com/api).
+Ruby client for the [Egree API V2](https://app.egree.com/apiv2).
 
 Currently the only supported api calls is `createcase`, `sendcase` and `getcase`.
 
