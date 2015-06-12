@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<EGREE_USERNAME>:<EGREE_PASSWORD>@test.egree.com/apiv1/createcasecommand
+    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-

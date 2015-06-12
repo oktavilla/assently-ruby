@@ -7,6 +7,7 @@ require "dotenv"
 require "webmock/rspec"
 require "vcr"
 require "uri"
+require "pry"
 
 Dotenv.load
 
@@ -17,9 +18,10 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
 
-  config.filter_sensitive_data("<EGREE_USERNAME>") { URI.encode_www_form_component ENV["EGREE_USERNAME"] }
-  config.filter_sensitive_data("<EGREE_PASSWORD>") { URI.encode_www_form_component ENV["EGREE_PASSWORD"] }
+  config.filter_sensitive_data("<EGREE_API_KEY>") { URI.encode_www_form_component ENV["EGREE_API_KEY"] }
+  config.filter_sensitive_data("<EGREE_API_SECRET>") { URI.encode_www_form_component ENV["EGREE_API_SECRET"] }
 
+  config.allow_http_connections_when_no_cassette = true
   config.ignore_hosts "codeclimate.com"
 end
 

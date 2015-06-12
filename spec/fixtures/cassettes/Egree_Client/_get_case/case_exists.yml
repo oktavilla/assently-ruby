@@ -2,12 +2,14 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<EGREE_USERNAME>:<EGREE_PASSWORD>@test.egree.com/apiv1/createcasecommand
+    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-
         {
+          "Id": "ae555b85-6bae-4e2a-8293-3d315a628903",
           "Name": "Agreement",
+          "NameAlias": "Agreement_alias",
           "Documents": [
             {
               "Filename": "agreement.pdf",
@@ -23,19 +25,19 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "2002298780"
+              "SocialSecurityNumber": "2705155246"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
           ],
-          "CaseReferenceId": "7557b733-0161-49a7-810b-a67b0f9fbb98"
+          "CaseReferenceId": "34a088b4-58e4-48cb-a392-66802a4a6e04"
         }
     headers:
       Accept:
       - application/json
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Content-Type:
       - application/json; charset=utf-8
       Accept-Encoding:
@@ -48,9 +50,9 @@ http_interactions:
       Cache-Control:
       - private, s-maxage=0
       Set-Cookie:
-      - sid=5j431xsu4hnyys42ebsiobia; path=/; HttpOnly; Secure
+      - sid=pd4z4nwxkkacwb2o1nacigvt; path=/; HttpOnly; Secure
       Date:
-      - Wed, 21 Jan 2015 15:54:28 GMT
+      - Wed, 10 Jun 2015 10:15:40 GMT
       Content-Length:
       - '0'
       Strict-Transport-Security:
@@ -59,21 +61,21 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 15:54:20 GMT
+  recorded_at: Wed, 10 Jun 2015 10:15:41 GMT
 - request:
     method: post
-    uri: https://<EGREE_USERNAME>:<EGREE_PASSWORD>@test.egree.com/apiv1/getviewcaseurlquery
+    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/getcase
     body:
       encoding: UTF-8
       string: |-
         {
-          "CaseReferenceId": "7557b733-0161-49a7-810b-a67b0f9fbb98"
+          "id": "ae555b85-6bae-4e2a-8293-3d315a628903"
         }
     headers:
       Accept:
       - application/json
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Content-Type:
       - application/json; charset=utf-8
       Accept-Encoding:
@@ -86,18 +88,19 @@ http_interactions:
       Cache-Control:
       - private, s-maxage=0
       Content-Type:
-      - text/html; charset=utf-8
+      - application/json; charset=utf-8
       Set-Cookie:
-      - sid=lklb333vghufpyywnefc2ysq; path=/; HttpOnly; Secure
+      - sid=xu4cmihyrc5n4eoz0odspq42; path=/; HttpOnly; Secure
       Date:
-      - Wed, 21 Jan 2015 15:54:28 GMT
+      - Wed, 10 Jun 2015 10:15:40 GMT
       Content-Length:
-      - '106'
+      - '1447'
       Strict-Transport-Security:
       - max-age=31536000
     body:
       encoding: UTF-8
-      string: https://test.egree.com/c/S_E6rKkD0ggrCOwYgeHZg7vfbTFTc3iAh_t91INy/S_E6rKkD0gjWXftzRNNkcUD3uKBDW2Lra7OqiV1K
+      string: '{"Id":"ae555b85-6bae-4e2a-8293-3d315a628903","Status":"Draft","Name":"Agreement","NameAlias":"Agreement_alias","Parties":[{"Id":"7f77","Name":"First
+        Last","GroupName":null,"EmailAddress":"name@example.com","SocialSecurityNumber":null,"SignedOn":null,"SignatureData":null,"PartyUrl":"https://test.egree.com/c/0xXPiX1x0gjPvjf3KhPDKHrSOzV2e1bSL6WUfa02/znbRiX1x0ggzymX6OpuTHZWfU4AH7OM2C2dKw5Ni","MobilePhone":"","Culture":"","AnyoneCanSign":false,"SignatureUrl":null}],"Documents":[{"Id":"bb22","Filename":"agreement.pdf","Data":null,"ContentType":"application/pdf","Size":6925,"Hash":"c466b4b118f825d7fe38d8fc878874daf750160f1227e92a457857acb10b1534945804e0e7071f51696fe8ae5c874abf773ab851d4a35727f2876d87162d0813","Type":"Original","FormFields":{}}],"Visibility":"Group","AllowedSignatureTypes":["Touch"],"Description":"","Stakeholders":[],"Metadata":{},"ContinueUrl":"","ContinueName":"","ContinueAuto":false,"SendSignRequestEmailToParties":false,"SendFinishEmailToCreator":false,"SendFinishEmailToParties":false,"SendRecallEmailToParties":false,"Culture":"en-US","SignInSequence":false,"IdentityCheck":false,"IsEditable":false,"MergeOnSend":false,"ExpireAfterDays":0,"ExpireOn":null,"RemindAfterDays":0,"RemindOn":null,"CreatedOn":"2015-06-10T10:15:40","TemplateId":null,"SentOn":null,"ReminderSentOn":null,"Hash":null,"AgentUrl":"https://test.egree.com/a/case/view/ae555b85-6bae-4e2a-8293-3d315a628903","EventCallback":null,"Procedure":"Default"}'
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 15:54:20 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Wed, 10 Jun 2015 10:15:42 GMT
+recorded_with: VCR 2.9.3

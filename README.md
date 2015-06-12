@@ -5,18 +5,31 @@
 
 # Egree
 
-Ruby client for the [Egree API](https://app.egree.com/apiv1).
+## You're on branch api/v2, if you want to use apiv1, checkout [master](https://github.com/kollegorna/egree-ruby/tree/master).
 
-Currently the only supported api calls is `createcasecommand` and `getviewcaseurlquery`.
+Ruby client for the [Egree API V2](https://app.egree.com/apiv2).
+
+Currently the only supported api calls are `createcase`, `sendcase` and `getcase`.
+
+### Note
+If you miss `getviewcaseurlquery`, this is how you can get the view case url.
+
+```
+signing_case = egree.get_case case_id
+signing_case.response["Parties"].first["PartyUrl"] # Each party gets their own url
+
+```
 
 ## Usage
 
 ### Creating a case
 
 ```ruby
-egree = Egree.client username, password
+egree = Egree.client egree_api_key, egree_api_secret
 
-signature_case = Egree::Case.new "Agreement", ["touch"]
+case_id = SecureRandom.uuid
+
+signature_case = Egree::Case.new "Agreement", ["electronicid"], case_id: case_id
 signature_case.add_party Egree::Party.new_with_attributes({
   name: "First Last",
   email: "name@example.com",
@@ -53,10 +66,15 @@ end
 
 ```ruby
 egree = Egree.client username, password
-result = egree.get_case_url "98d08cf5-d35d-403b-ac31-fa1ac85037a1"
+result = egree.get_case case_id
 
 if result.success?
   puts "The url is: #{result.response}"
+  egree.send_case case_id
+  
+  signing_case = egree.get_case case_id
+  
+  puts "Sign here: #{signing_case.response["Parties"].first["PartyUrl"]}"
 else
   puts "Could not get signature url"
   result.errors.each do |error|
@@ -80,6 +98,10 @@ Please adhere to the coding standards used in the project and add tests.
 Create a .env file in the root directory to run the integration tests against your Egree environment.
 
 ```yaml
-EGREE_USERNAME=your-username
-EGREE_PASSWORD=your-password
+EGREE_API_KEY=your-api-key
+EGREE_API_SECRET=your-api-secret
 ```
+
+You can get them here: ```https://test.egree.com/a/account/api```
+
+
