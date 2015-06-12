@@ -11,7 +11,9 @@ module Egree
           party = double "Party"
           document = double "Document"
 
-          signature_case = Egree::Case.new "Agreement", ["electronicId"]
+          case_id = SecureRandom.uuid
+
+          signature_case = Egree::Case.new "Agreement", ["electronicid"], case_id: case_id
           signature_case.add_party party
           signature_case.add_document document
 
@@ -21,11 +23,13 @@ module Egree
           api_hash = CaseMapper.to_api signature_case
 
           expect(api_hash).to eq({
+            "Id" => case_id,
             "CaseReferenceId" => signature_case.reference_id.to_s,
             "Name" => "Agreement",
+            "NameAlias" => "Agreement_alias",
             "Documents" => [{ document: "on" }],
             "Parties" => [{ party: "on" }],
-            "AllowedSignatureTypes" => ["electronicId"]
+            "AllowedSignatureTypes" => ["electronicid"]
           })
         end
       end

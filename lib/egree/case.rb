@@ -3,17 +3,18 @@ require "egree/reference_id"
 module Egree
   class Case
     def self.signature_types
-      [ "sms", "electronicId", "touch" ]
+      [ "sms", "electronicid", "touch", "quickintent", "signbyhand" ]
     end
 
     def self.generate_reference_id
       ReferenceId.generate
     end
 
-    attr_reader :name, :signature_types
+    attr_reader :name, :signature_types, :case_id
 
-    def initialize name, signature_types
+    def initialize name, signature_types, options = {}
       @name = name
+      @case_id = options.delete(:case_id)
       self.signature_types = signature_types
     end
 

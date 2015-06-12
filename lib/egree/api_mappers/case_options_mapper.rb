@@ -35,6 +35,10 @@ module Egree
 
       def self.mappers
         {
+          send_sign_request_email_to_parties: "SendSignRequestEmailToParties",
+          send_finish_email_to_creator: "SendFinishEmailToCreator",
+          send_finish_email_to_parties: "SendFinishEmailToParties",
+          send_recall_email_to_parties: "SendRecallEmailToParties",
           postback_url: "CaseFinishedCallbackUrl",
           cancel_url: "CancelUrl",
           procedure: "Procedure",
