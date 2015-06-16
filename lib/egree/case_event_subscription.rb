@@ -2,9 +2,30 @@ module Egree
   class CaseEventSubscription
     attr_reader :events, :url
 
+    def self.events
+      [ "created", "sent", "recalled", "finished", "rejected", "expired", "deleted", "signatureadded", "approvalrequested" ]
+    end
+
     def initialize(events, url)
-      @events = events
+      self.events = events
       @url = url
+    end
+
+    def events= events
+      types = Array(events)
+
+      unknown_events = events - CaseEventSubscription.events
+      if unknown_events.any?
+        raise unknown_event_error(unknown_events)
+      end
+
+      @events = events
+    end
+
+    private
+
+    def unknown_event_error events
+      ArgumentError.new("Unknown events: #{events.join(", ")}. Valid events are: #{CaseEventSubscription.events.join(", ")}")
     end
   end
 end
