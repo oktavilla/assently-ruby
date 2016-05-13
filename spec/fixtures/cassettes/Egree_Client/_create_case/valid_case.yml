@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<EGREE_USERNAME>:<EGREE_PASSWORD>@test.egree.com/apiv1/createcasecommand
+    uri: https://<EGREE_USERNAME>:<EGREE_PASSWORD>@test.assently.com/apiv1/createcasecommand
     body:
       encoding: UTF-8
       string: |-
@@ -23,13 +23,13 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "5905018940"
+              "SocialSecurityNumber": "7502133825"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
           ],
-          "CaseReferenceId": "dcc61bf6-f89d-4fe2-a3a1-42c53299d476",
+          "CaseReferenceId": "5a6b4729-9dcf-4990-bd0c-08707e995a67",
           "CaseFinishedCallbackUrl": "http://example.com/postback",
           "ContinueName": "Back to the site",
           "ContinueUrl": "http://example.com/thanks",
@@ -42,7 +42,7 @@ http_interactions:
       Accept:
       - application/json
       User-Agent:
-      - Faraday v0.9.0
+      - Faraday v0.9.1
       Content-Type:
       - application/json; charset=utf-8
       Accept-Encoding:
@@ -54,10 +54,12 @@ http_interactions:
     headers:
       Cache-Control:
       - private, s-maxage=0
+      X-Frame-Options:
+      - SAMEORIGIN
       Set-Cookie:
-      - sid=yoewcrcugwvwvjhionegnohj; path=/; HttpOnly; Secure
+      - sid=ljm4ozzlbr05psmfrxqv1wyr; path=/; HttpOnly; Secure
       Date:
-      - Wed, 21 Jan 2015 15:54:28 GMT
+      - Fri, 13 May 2016 13:43:12 GMT
       Content-Length:
       - '0'
       Strict-Transport-Security:
@@ -66,5 +68,5 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Wed, 21 Jan 2015 15:54:19 GMT
+  recorded_at: Fri, 13 May 2016 13:42:49 GMT
 recorded_with: VCR 2.9.2

@@ -61,7 +61,7 @@ module Egree
           it "has the url as the response" do
             result = client.get_case_url reference_id
 
-            expect(result.response).to match "https://test.egree.com"
+            expect(result.response).to match "https://test.assently.com"
           end
         end
       end
@@ -77,7 +77,7 @@ module Egree
           it "has the error" do
             result = client.get_case_url "missing-case"
 
-            expect(result.errors[0]).to eq "E030 User is not creator of case."
+            expect(result.errors[0]).to eq "E123 Permission Denied: Read"
           end
         end
       end

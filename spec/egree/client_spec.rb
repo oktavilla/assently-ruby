@@ -13,11 +13,11 @@ RSpec.describe Egree::Client do
 
   describe "host" do
     it "defaults to the production environment" do
-      expect(client.host).to eq "app.egree.com"
+      expect(client.host).to eq "app.assently.com"
     end
 
     it "can be set to the test environment" do
-      test_host = "test.egree.com"
+      test_host = "test.assently.com"
 
       expect(Egree::Client.new("admin", "secret", :test).host).to eq test_host
 
@@ -30,7 +30,7 @@ RSpec.describe Egree::Client do
 
   describe "#post" do
     it "it sends the json as the request body" do
-      stub_request(:post, "https://admin:secret@app.egree.com/some/path").with({
+      stub_request(:post, "https://admin:secret@app.assently.com/some/path").with({
         body: '{ "key": "value" }'
       })
 
@@ -39,7 +39,7 @@ RSpec.describe Egree::Client do
 
     describe "headers" do
       it "sets application/json with utf8 charset" do
-        stub_request(:post, "https://admin:secret@app.egree.com/some/path").with({
+        stub_request(:post, "https://admin:secret@app.assently.com/some/path").with({
           headers: { "content-type" => "application/json; charset=utf-8" }
         })
 
@@ -49,7 +49,7 @@ RSpec.describe Egree::Client do
 
     describe "with a successful response" do
       before do
-        stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
+        stub_request(:post, "https://admin:secret@app.assently.com/some/path").to_return({
           status: 200,
           body: '{ "result": "Success" }'
         })
@@ -75,7 +75,7 @@ RSpec.describe Egree::Client do
         end
 
         it "handles simple string bodies" do
-          stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
+          stub_request(:post, "https://admin:secret@app.assently.com/some/path").to_return({
             status: 200,
             body: "a string response"
           })
@@ -89,7 +89,7 @@ RSpec.describe Egree::Client do
 
     describe "with a error response" do
       before do
-        stub_request(:post, "https://admin:secret@app.egree.com/some/path").to_return({
+        stub_request(:post, "https://admin:secret@app.assently.com/some/path").to_return({
           status: 400,
           body: '{"error":{"errorCode":"E041","message":"At least one signer is required."}}'
         })

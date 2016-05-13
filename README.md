@@ -5,7 +5,7 @@
 
 # Egree
 
-Ruby client for the [Egree API](https://app.egree.com/apiv1).
+Ruby client for the [Assently API](https://app.assently.com/apiv1).
 
 Currently the only supported api calls is `createcasecommand` and `getviewcaseurlquery`.
 
