@@ -66,8 +66,8 @@ module Egree
 
     def hosts
       {
-        production: "app.egree.com",
-        test: "test.egree.com"
+        production: "app.assently.com",
+        test: "test.assently.com"
       }
     end
 
