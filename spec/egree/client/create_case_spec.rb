@@ -13,7 +13,7 @@ module Egree
         Egree::Client.new ENV["EGREE_API_KEY"], ENV["EGREE_API_SECRET"], :test
       end
 
-      it "sends the create case comamnd with a json representation of the case" do
+      it "sends the create case command with a json representation of the case" do
         allow(client).to receive :post
 
         signature_case = double "Case"
