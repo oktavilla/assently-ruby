@@ -7,6 +7,8 @@ addons:
   code_climate:
     repo_token:
       secure: "MYIsQJ3/wQ6xBYaWCwgG1HRyrH7MH4vME+ACEbM9poMun6jgvFu7Unc0eGpjMxzytophN5o7j0LTc6xxNCMCz6UGFK8Y7RP9/fii6bLFdqROS7jrxYf6tFwKXO4bAhhOZdZjyuYEFiRxImNHPXka+ap4vOnP/QW3D8l94lrAyoM="
+after_success:
+  - bundle exec codeclimate-test-reporter
 env:
   global:
   - secure: CPu3hIqPCA4txUqh7aS90PR7hGURzyoqcMu0zJx4qvrtvzsI9eyEWKx7P8pXbvYUIgaGevw5GiWEMYH2axkH/74KMyAL9DsdpDA06aCxdZfs7iEaNfZY+l4MN3WCFb9WoLVL7fG+wqgvZXnV4RyLkn+W+vjdmvjY8RZ9G7/0HiE=
