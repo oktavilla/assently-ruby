@@ -12,8 +12,6 @@ module Egree
     end
 
     def events= events
-      types = Array(events)
-
       unknown_events = events - CaseEventSubscription.events
       if unknown_events.any?
         raise unknown_event_error(unknown_events)
