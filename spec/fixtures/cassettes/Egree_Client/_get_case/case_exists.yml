@@ -2,12 +2,12 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/createcase
+    uri: https://test.egree.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-
         {
-          "Id": "ae555b85-6bae-4e2a-8293-3d315a628903",
+          "Id": "b964868d-c6a9-4d17-88e6-3a271e49508c",
           "Name": "Agreement",
           "NameAlias": "Agreement_alias",
           "Documents": [
@@ -25,19 +25,21 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "2705155246"
+              "SocialSecurityNumber": "0301030854"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
           ],
-          "CaseReferenceId": "34a088b4-58e4-48cb-a392-66802a4a6e04"
+          "CaseReferenceId": "49b81ed1-d2db-459d-919c-967d03f773a4"
         }
     headers:
       Accept:
       - application/json
+      Authorization:
+      - Basic <EGREE_API_AUTH_HEADER>
       User-Agent:
-      - Faraday v0.9.1
+      - Faraday v0.11.0
       Content-Type:
       - application/json; charset=utf-8
       Accept-Encoding:
@@ -49,10 +51,12 @@ http_interactions:
     headers:
       Cache-Control:
       - private, s-maxage=0
+      X-Frame-Options:
+      - SAMEORIGIN
       Set-Cookie:
-      - sid=pd4z4nwxkkacwb2o1nacigvt; path=/; HttpOnly; Secure
+      - sid=02is4heqfidjm5wgqkmw3ml3; path=/; HttpOnly; Secure
       Date:
-      - Wed, 10 Jun 2015 10:15:40 GMT
+      - Thu, 26 Jan 2017 20:23:50 GMT
       Content-Length:
       - '0'
       Strict-Transport-Security:
@@ -61,21 +65,23 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Wed, 10 Jun 2015 10:15:41 GMT
+  recorded_at: Thu, 26 Jan 2017 20:23:50 GMT
 - request:
     method: post
-    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/getcase
+    uri: https://test.egree.com/api/v2/getcase
     body:
       encoding: UTF-8
       string: |-
         {
-          "id": "ae555b85-6bae-4e2a-8293-3d315a628903"
+          "id": "b964868d-c6a9-4d17-88e6-3a271e49508c"
         }
     headers:
       Accept:
       - application/json
+      Authorization:
+      - Basic <EGREE_API_AUTH_HEADER>
       User-Agent:
-      - Faraday v0.9.1
+      - Faraday v0.11.0
       Content-Type:
       - application/json; charset=utf-8
       Accept-Encoding:
@@ -89,18 +95,20 @@ http_interactions:
       - private, s-maxage=0
       Content-Type:
       - application/json; charset=utf-8
+      X-Frame-Options:
+      - SAMEORIGIN
       Set-Cookie:
-      - sid=xu4cmihyrc5n4eoz0odspq42; path=/; HttpOnly; Secure
+      - sid=hliu0cfzx2x0kuj0ttsfvc5a; path=/; HttpOnly; Secure
       Date:
-      - Wed, 10 Jun 2015 10:15:40 GMT
+      - Thu, 26 Jan 2017 20:23:50 GMT
       Content-Length:
-      - '1447'
+      - '1485'
       Strict-Transport-Security:
       - max-age=31536000
     body:
       encoding: UTF-8
-      string: '{"Id":"ae555b85-6bae-4e2a-8293-3d315a628903","Status":"Draft","Name":"Agreement","NameAlias":"Agreement_alias","Parties":[{"Id":"7f77","Name":"First
-        Last","GroupName":null,"EmailAddress":"name@example.com","SocialSecurityNumber":null,"SignedOn":null,"SignatureData":null,"PartyUrl":"https://test.egree.com/c/0xXPiX1x0gjPvjf3KhPDKHrSOzV2e1bSL6WUfa02/znbRiX1x0ggzymX6OpuTHZWfU4AH7OM2C2dKw5Ni","MobilePhone":"","Culture":"","AnyoneCanSign":false,"SignatureUrl":null}],"Documents":[{"Id":"bb22","Filename":"agreement.pdf","Data":null,"ContentType":"application/pdf","Size":6925,"Hash":"c466b4b118f825d7fe38d8fc878874daf750160f1227e92a457857acb10b1534945804e0e7071f51696fe8ae5c874abf773ab851d4a35727f2876d87162d0813","Type":"Original","FormFields":{}}],"Visibility":"Group","AllowedSignatureTypes":["Touch"],"Description":"","Stakeholders":[],"Metadata":{},"ContinueUrl":"","ContinueName":"","ContinueAuto":false,"SendSignRequestEmailToParties":false,"SendFinishEmailToCreator":false,"SendFinishEmailToParties":false,"SendRecallEmailToParties":false,"Culture":"en-US","SignInSequence":false,"IdentityCheck":false,"IsEditable":false,"MergeOnSend":false,"ExpireAfterDays":0,"ExpireOn":null,"RemindAfterDays":0,"RemindOn":null,"CreatedOn":"2015-06-10T10:15:40","TemplateId":null,"SentOn":null,"ReminderSentOn":null,"Hash":null,"AgentUrl":"https://test.egree.com/a/case/view/ae555b85-6bae-4e2a-8293-3d315a628903","EventCallback":null,"Procedure":"Default"}'
+      string: '{"Id":"b964868d-c6a9-4d17-88e6-3a271e49508c","Status":"Draft","Name":"Agreement","NameAlias":"Agreement_alias","Parties":[{"Id":"30f5","Name":"First
+        Last","GroupName":null,"EmailAddress":"name@example.com","SocialSecurityNumber":null,"SignedOn":null,"SignatureData":null,"PartyUrl":"https://test.assently.com/c/5-b0PSlG1AgfIi1LhKVqlpl8jtjrTodpyfjAy63a/0Gv1PSlG1AipJPW1P5kQSgB4nS_yaNdnz8UD44fL","MobilePhone":"","Culture":"","AnyoneCanSign":false,"IpAddress":"","SignatureUrl":null}],"Documents":[{"Id":"54aa","Filename":"agreement.pdf","Data":null,"ContentType":"application/pdf","Size":6925,"Hash":"c466b4b118f825d7fe38d8fc878874daf750160f1227e92a457857acb10b1534945804e0e7071f51696fe8ae5c874abf773ab851d4a35727f2876d87162d0813","Type":"Original","FormFields":{}}],"Visibility":"Group","AllowedSignatureTypes":["Touch"],"Description":"","Stakeholders":[],"Metadata":{},"CancelUrl":null,"ContinueUrl":"","ContinueName":"","ContinueAuto":false,"SendSignRequestEmailToParties":false,"SendFinishEmailToCreator":false,"SendFinishEmailToParties":false,"SendRecallEmailToParties":false,"Culture":"en-US","SignInSequence":false,"IdentityCheck":false,"IsEditable":false,"MergeOnSend":false,"ExpireAfterDays":0,"ExpireOn":null,"RemindAfterDays":0,"RemindOn":null,"CreatedOn":"2017-01-26T20:23:51","TemplateId":null,"SentOn":null,"ReminderSentOn":null,"Hash":null,"AgentUrl":"https://test.assently.com/a/case/view/b964868d-c6a9-4d17-88e6-3a271e49508c","EventCallback":null,"Procedure":"Default"}'
     http_version: 
-  recorded_at: Wed, 10 Jun 2015 10:15:42 GMT
-recorded_with: VCR 2.9.3
+  recorded_at: Thu, 26 Jan 2017 20:23:51 GMT
+recorded_with: VCR 3.0.3

@@ -49,10 +49,12 @@ RSpec.describe Egree::Client do
 
     describe "with a successful response" do
       before do
-        stub_request(:post, "https://admin:secret@app.assently.com/some/path").to_return({
-          status: 200,
-          body: '{ "result": "Success" }'
-        })
+        stub_request(:post, "https://app.egree.com/some/path").
+          with(basic_auth: ["admin", "secret"]).
+          to_return({
+            status: 200,
+            body: '{ "result": "Success" }'
+          })
       end
 
       describe "result" do
@@ -75,10 +77,12 @@ RSpec.describe Egree::Client do
         end
 
         it "handles simple string bodies" do
-          stub_request(:post, "https://admin:secret@app.assently.com/some/path").to_return({
-            status: 200,
-            body: "a string response"
-          })
+          stub_request(:post, "https://app.egree.com/some/path").
+            with(basic_auth: ["admin", "secret"]).
+            to_return({
+              status: 200,
+              body: "a string response"
+            })
 
           result = client.post "/some/path"
 
@@ -89,10 +93,12 @@ RSpec.describe Egree::Client do
 
     describe "with a error response" do
       before do
-        stub_request(:post, "https://admin:secret@app.assently.com/some/path").to_return({
-          status: 400,
-          body: '{"error":{"errorCode":"E041","message":"At least one signer is required."}}'
-        })
+        stub_request(:post, "https://app.egree.com/some/path").
+          with(basic_auth: ["admin", "secret"]).
+          to_return({
+            status: 400,
+            body: '{"error":{"errorCode":"E041","message":"At least one signer is required."}}'
+          })
       end
 
       it "returns a error result" do

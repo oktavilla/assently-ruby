@@ -77,10 +77,12 @@ module Egree
           end
 
           before do
-            stub_request(:get, "test-user:secret@#{url}").to_return({
-              status: 200,
-              body: "the-body"
-            })
+            stub_request(:get, "@#{url}").
+              with(basic_auth: ["test-user", "secret"]).
+              to_return({
+                status: 200,
+                body: "the-body"
+              })
           end
 
           it "returns the document" do

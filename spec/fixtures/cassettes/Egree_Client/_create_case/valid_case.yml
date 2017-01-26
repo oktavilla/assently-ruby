@@ -2,12 +2,14 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<EGREE_API_KEY>:<EGREE_API_SECRET>@test.egree.com/api/v2/createcase
+    uri: https://test.egree.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-
         {
+          "Id": "ce7dd6e7-bcda-4340-a9c7-6f1e51786a34",
           "Name": "Agreement",
+          "NameAlias": "Agreement_alias",
           "Documents": [
             {
               "Filename": "agreement.pdf",
@@ -23,13 +25,13 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "7502133825"
+              "SocialSecurityNumber": "2405062254"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
           ],
-          "CaseReferenceId": "5a6b4729-9dcf-4990-bd0c-08707e995a67",
+          "CaseReferenceId": "e0d458e6-bdac-4d8b-80e6-bf468b9a2b0f",
           "CaseFinishedCallbackUrl": "http://example.com/postback",
           "ContinueName": "Back to the site",
           "ContinueUrl": "http://example.com/thanks",
@@ -41,8 +43,10 @@ http_interactions:
     headers:
       Accept:
       - application/json
+      Authorization:
+      - Basic <EGREE_API_AUTH_HEADER>
       User-Agent:
-      - Faraday v0.9.1
+      - Faraday v0.11.0
       Content-Type:
       - application/json; charset=utf-8
       Accept-Encoding:
@@ -57,9 +61,9 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       Set-Cookie:
-      - sid=ljm4ozzlbr05psmfrxqv1wyr; path=/; HttpOnly; Secure
+      - sid=tc1muzjfyfsfqo05joyuxjr5; path=/; HttpOnly; Secure
       Date:
-      - Fri, 13 May 2016 13:43:12 GMT
+      - Thu, 26 Jan 2017 20:23:50 GMT
       Content-Length:
       - '0'
       Strict-Transport-Security:
@@ -68,5 +72,5 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 13 May 2016 13:42:49 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Thu, 26 Jan 2017 20:23:50 GMT
+recorded_with: VCR 3.0.3

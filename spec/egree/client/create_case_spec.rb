@@ -51,25 +51,6 @@ module Egree
           expect(result.success?).to be true
         end
       end
-
-      describe "with an invalid case" do
-        it "returns a error result object", vcr: { cassette_name: "Egree_Client/_create_case/invalid_case" } do
-          signature_case = Egree::Case.new "Agreement", ["touch"]
-
-          result = client.create_case signature_case
-
-          expect(result.success?).to be false
-        end
-
-        it "includes the error message", vcr: true do
-          signature_case = Egree::Case.new "Agreement", ["touch"]
-          signature_case.add_document Egree::Document.new(File.join(Dir.pwd, "spec/fixtures/agreement.pdf"))
-
-          result = client.create_case signature_case
-
-          expect(result.errors[0]).to eq "E041 At least one signer is required."
-        end
-      end
     end
   end
 end
