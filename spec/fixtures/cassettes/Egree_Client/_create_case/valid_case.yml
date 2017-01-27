@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://test.egree.com/api/v2/createcase
+    uri: https://test.assently.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-

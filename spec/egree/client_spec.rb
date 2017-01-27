@@ -30,16 +30,19 @@ RSpec.describe Egree::Client do
 
   describe "#post" do
     it "it sends the json as the request body" do
-      stub_request(:post, "https://admin:secret@app.assently.com/some/path").with({
-        body: '{ "key": "value" }'
-      })
+      stub_request(:post, "https://app.assently.com/some/path").
+       with({
+         basic_auth: ["admin", "secret"],
+         body: '{ "key": "value" }'
+       })
 
       client.post "/some/path", '{ "key": "value" }'
     end
 
     describe "headers" do
       it "sets application/json with utf8 charset" do
-        stub_request(:post, "https://admin:secret@app.assently.com/some/path").with({
+        stub_request(:post, "https://app.assently.com/some/path").with({
+          basic_auth: ["admin", "secret"],
           headers: { "content-type" => "application/json; charset=utf-8" }
         })
 
@@ -49,7 +52,7 @@ RSpec.describe Egree::Client do
 
     describe "with a successful response" do
       before do
-        stub_request(:post, "https://app.egree.com/some/path").
+        stub_request(:post, "https://app.assently.com/some/path").
           with(basic_auth: ["admin", "secret"]).
           to_return({
             status: 200,
@@ -77,7 +80,7 @@ RSpec.describe Egree::Client do
         end
 
         it "handles simple string bodies" do
-          stub_request(:post, "https://app.egree.com/some/path").
+          stub_request(:post, "https://app.assently.com/some/path").
             with(basic_auth: ["admin", "secret"]).
             to_return({
               status: 200,
@@ -93,7 +96,7 @@ RSpec.describe Egree::Client do
 
     describe "with a error response" do
       before do
-        stub_request(:post, "https://app.egree.com/some/path").
+        stub_request(:post, "https://app.assently.com/some/path").
           with(basic_auth: ["admin", "secret"]).
           to_return({
             status: 400,

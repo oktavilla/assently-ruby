@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://test.egree.com/api/v2/createcase
+    uri: https://test.assently.com/api/v2/createcase
     body:
       encoding: UTF-8
       string: |-
@@ -68,7 +68,7 @@ http_interactions:
   recorded_at: Thu, 26 Jan 2017 20:23:50 GMT
 - request:
     method: post
-    uri: https://test.egree.com/api/v2/getcase
+    uri: https://test.assently.com/api/v2/getcase
     body:
       encoding: UTF-8
       string: |-
