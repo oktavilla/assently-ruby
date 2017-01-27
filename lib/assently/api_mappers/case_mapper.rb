@@ -10,7 +10,6 @@ module Assently
         {
           "Id" => signature_case.case_id || SecureRandom.uuid,
           "Name" => signature_case.name,
-          "NameAlias" => "#{signature_case.name}_alias",
           "Documents" => signature_case.documents.map { |document|
             Assently::ApiMappers::DocumentMapper.to_api(document)
           },

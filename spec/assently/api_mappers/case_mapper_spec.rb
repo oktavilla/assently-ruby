@@ -26,7 +26,6 @@ module Assently
             "Id" => case_id,
             "CaseReferenceId" => signature_case.reference_id.to_s,
             "Name" => "Agreement",
-            "NameAlias" => "Agreement_alias",
             "Documents" => [{ document: "on" }],
             "Parties" => [{ party: "on" }],
             "AllowedSignatureTypes" => ["electronicid"]
