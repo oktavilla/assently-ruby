@@ -1,0 +1,116 @@
+require "json"
+require "faraday"
+
+require "assently/serializers/case_serializer"
+require "assently/serializers/reference_id_serializer"
+
+module Assently
+  class Client
+    attr_reader :username, :password
+
+    attr_accessor :environment
+
+    def initialize username, password, environment = :production
+      @username = username
+      @password = password
+      self.environment = environment
+    end
+
+    def create_case signature_case, options = {}
+      signature_case_json = Assently::Serializers::CaseSerializer.serialize signature_case, options
+
+      post "/api/v2/createcase", signature_case_json
+    end
+
+    def send_case(id)
+      post "/api/v2/sendcase", JSON.pretty_generate({ id: id })
+    end
+
+    def get_case(id)
+      post "/api/v2/getcase", JSON.pretty_generate({ id: id })
+    end
+
+    def post api_command, body = nil
+      response = make_post api_command, body
+
+      if response.success?
+        SuccessResult.new response.body
+      else
+        ErrorResult.new response.body
+      end
+    end
+
+    def host
+      hosts.fetch(self.environment, hosts[:production])
+    end
+
+    def connection
+      Faraday.new "https://#{host}" do |conn|
+        conn.headers["Accept"] = "application/json"
+        conn.basic_auth username, password
+        conn.adapter :net_http
+      end
+    end
+
+    def headers
+      connection.headers
+    end
+
+    private
+
+    def make_post url, body
+      connection.post do |request|
+        request.url url
+        request.headers["Content-Type"] = "application/json; charset=utf-8"
+        request.body = body if body
+      end
+    end
+
+    def hosts
+      {
+        production: "app.assently.com",
+        test: "test.assently.com"
+      }
+    end
+
+    class SuccessResult
+      attr_reader :raw
+
+      def initialize response
+        @raw = response
+      end
+
+      def response
+        begin
+          JSON.parse raw
+        rescue JSON::ParserError
+          raw
+        end
+      end
+
+      def success?
+        true
+      end
+    end
+
+    class ErrorResult
+      attr_reader :raw
+
+      def initialize response
+        @raw = response
+      end
+
+      def errors
+        begin
+          Array(JSON.parse(raw)["error"].values.join(" "))
+        rescue JSON::ParserError
+          raw
+        end
+      end
+
+      def success?
+        false
+      end
+    end
+  end
+end
