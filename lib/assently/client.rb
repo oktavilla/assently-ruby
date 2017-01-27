@@ -2,7 +2,6 @@ require "json"
 require "faraday"
 
 require "assently/serializers/case_serializer"
-require "assently/serializers/reference_id_serializer"
 
 module Assently
   class Client

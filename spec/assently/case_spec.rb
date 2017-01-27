@@ -11,27 +11,27 @@ module Assently
       expect(signature_case.name).to eq "Agreement"
     end
 
-    specify ".generate_reference_id" do
-      expect(Assently::ReferenceId).to receive(:generate).and_return "very-random"
+    describe "#id" do
+      it "creates a unique id" do
+        expect(Assently::IdGenerator).to receive(:generate).and_return "very-random"
 
-      expect(Case.generate_reference_id).to eq "very-random"
-    end
-
-    describe "#reference_id" do
-      it "creates a unique reference_id" do
-        expect(Case).to receive(:generate_reference_id).and_return "very-random"
-
-        expect(signature_case.reference_id).to eq "very-random"
+        expect(signature_case.id).to eq "very-random"
       end
 
-      it "does not change the reference_id after created" do
-        last_id = signature_case.reference_id
+      it "does not change the id after created" do
+        last_id = signature_case.id
 
-        expect(signature_case.reference_id).to eq last_id
+        expect(signature_case.id).to eq last_id
       end
 
-      it "does not share reference_id between instances" do
-        expect(signature_case.reference_id).to_not eq Case.new("Agreement", Case.signature_types).reference_id
+      it "does not share id between instances" do
+        expect(signature_case.id).to_not eq Case.new("Agreement", Case.signature_types).id
+      end
+
+      it "can be overwritten on initialize" do
+        signature_case = Case.new "Agreement", Case.signature_types, id: "my-special-id"
+
+        expect(signature_case.id).to eq "my-special-id"
       end
     end
 

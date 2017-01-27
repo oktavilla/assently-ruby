@@ -69,7 +69,7 @@ result = assently.create_case(signature_case, {
 })
 
 if result.success?
-  puts "#{signature_case.reference_id} was created."
+  puts "#{signature_case.id} was created."
 else 
   puts "There was some issues with the case"
   result.errors.each do |error|

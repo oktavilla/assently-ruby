@@ -11,9 +11,7 @@ module Assently
           party = double "Party"
           document = double "Document"
 
-          case_id = SecureRandom.uuid
-
-          signature_case = Assently::Case.new "Agreement", ["electronicid"], case_id: case_id
+          signature_case = Assently::Case.new "Agreement", ["electronicid"]
           signature_case.add_party party
           signature_case.add_document document
 
@@ -23,8 +21,7 @@ module Assently
           api_hash = CaseMapper.to_api signature_case
 
           expect(api_hash).to eq({
-            "Id" => case_id,
-            "CaseReferenceId" => signature_case.reference_id.to_s,
+            "Id" => signature_case.id,
             "Name" => "Agreement",
             "Documents" => [{ document: "on" }],
             "Parties" => [{ party: "on" }],

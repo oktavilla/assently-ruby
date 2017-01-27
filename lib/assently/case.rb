@@ -1,4 +1,4 @@
-require "assently/reference_id"
+require "assently/id_generator"
 
 module Assently
   class Case
@@ -6,22 +6,12 @@ module Assently
       [ "sms", "electronicid", "touch", "quickintent", "signbyhand" ]
     end
 
-    def self.generate_reference_id
-      ReferenceId.generate
-    end
-
-    attr_reader :name, :signature_types, :case_id
+    attr_reader :name, :signature_types, :id
 
     def initialize name, signature_types, options = {}
       @name = name
-      @case_id = options.delete(:case_id)
+      @id = options.delete(:id) { IdGenerator.generate }
       self.signature_types = signature_types
-    end
-
-    attr_writer :reference_id
-
-    def reference_id
-      @reference_id ||= self.class.generate_reference_id
     end
 
     def signature_types= signature_types
