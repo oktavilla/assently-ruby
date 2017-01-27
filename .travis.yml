@@ -6,10 +6,10 @@ script: rspec spec
 addons:
   code_climate:
     repo_token:
-      secure: "MYIsQJ3/wQ6xBYaWCwgG1HRyrH7MH4vME+ACEbM9poMun6jgvFu7Unc0eGpjMxzytophN5o7j0LTc6xxNCMCz6UGFK8Y7RP9/fii6bLFdqROS7jrxYf6tFwKXO4bAhhOZdZjyuYEFiRxImNHPXka+ap4vOnP/QW3D8l94lrAyoM="
+      secure: MYIsQJ3/wQ6xBYaWCwgG1HRyrH7MH4vME+ACEbM9poMun6jgvFu7Unc0eGpjMxzytophN5o7j0LTc6xxNCMCz6UGFK8Y7RP9/fii6bLFdqROS7jrxYf6tFwKXO4bAhhOZdZjyuYEFiRxImNHPXka+ap4vOnP/QW3D8l94lrAyoM=
 after_success:
-  - bundle exec codeclimate-test-reporter
+- bundle exec codeclimate-test-reporter
 env:
   global:
-  - secure: CPu3hIqPCA4txUqh7aS90PR7hGURzyoqcMu0zJx4qvrtvzsI9eyEWKx7P8pXbvYUIgaGevw5GiWEMYH2axkH/74KMyAL9DsdpDA06aCxdZfs7iEaNfZY+l4MN3WCFb9WoLVL7fG+wqgvZXnV4RyLkn+W+vjdmvjY8RZ9G7/0HiE=
-  - secure: WG67hclm6kFtNQRKa/a5j2R79n4cTq7WrI+sCaxq5Nr5jvstdamaIOPtaenX7fIIakBYhX1wtGqOvlEjUzF8IpLi/fwDjn1Cb8DP8oyLhK1koeLZhegiGV3hEsne7RNiV1G8VMHfsGeJBUm2wvsWx4EdK60Ib4+ZLuw5WFMVlNg=
+  - secure: NOH9DBJdldYSVadf2zAYPtP7Nke3k4rdrsXv2uBLelHwuZhmrRRprdgM2h3igheiq2j/OcbZSZeNgLMWY06A+RhxQzUOKUDBFcUs9QL23xgKFZcRi3YNqhhLC/LRXo4gmpL4J7OFJqMySTlaIWHRFqLJoFdoHTut3YKAChea4xE=
+  - secure: KQ/hQWZ1UTkbrfBUqy5qU/tw1YVpPSNtMnsNuammiBq9xJL2hkwIBiOwKmnC6rb48KhkCGCSmKU1CLvsqmAEncwF8vBXzrFPgQdg7JQN9Wn0gb2ESCnhfIP0rFfoKLZI9YVP3SB8YsfODlfNJwjKhAqsI6mCoQ/jN7yX8bvfnlM=
