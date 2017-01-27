@@ -7,7 +7,7 @@ require "assently/reference_id"
 require "assently/version"
 
 module Assently
-  def self.client username, password, environment = :production
-    Client.new username, password, environment
+  def self.client api_key, api_secret, environment = :production
+    Client.new api_key, api_secret, environment
   end
 end

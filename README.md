@@ -81,7 +81,7 @@ end
 ### Getting the signature url for a case
 
 ```ruby
-assently = Assently.client username, password
+assently = Assently.client API_KEY, API_SECRET
 result = assently.get_case case_id
 
 if result.success?

@@ -6,9 +6,9 @@ RSpec.describe Assently::Client do
     Assently::Client.new "admin", "secret"
   end
 
-  it "instantiates with username and password" do
-    expect(client.username).to eq "admin"
-    expect(client.password).to eq "secret"
+  it "instantiates with api key and api secret" do
+    expect(client.api_key).to eq "admin"
+    expect(client.api_secret).to eq "secret"
   end
 
   describe "host" do

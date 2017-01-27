@@ -10,8 +10,8 @@ RSpec.describe Assently do
     it "passes arguments to the client" do
       client = Assently.client "admin", "secret"
 
-      expect(client.username).to eq "admin"
-      expect(client.password).to eq "secret"
+      expect(client.api_key).to eq "admin"
+      expect(client.api_secret).to eq "secret"
     end
   end
 end

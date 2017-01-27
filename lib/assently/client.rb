@@ -6,13 +6,13 @@ require "assently/serializers/reference_id_serializer"
 
 module Assently
   class Client
-    attr_reader :username, :password
+    attr_reader :api_key, :api_secret
 
     attr_accessor :environment
 
-    def initialize username, password, environment = :production
-      @username = username
-      @password = password
+    def initialize api_key, api_secret, environment = :production
+      @api_key = api_key
+      @api_secret = api_secret
       self.environment = environment
     end
 
@@ -47,7 +47,7 @@ module Assently
     def connection
       Faraday.new "https://#{host}" do |conn|
         conn.headers["Accept"] = "application/json"
-        conn.basic_auth username, password
+        conn.basic_auth api_key, api_secret
         conn.adapter :net_http
       end
     end
