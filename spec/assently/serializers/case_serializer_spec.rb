@@ -7,7 +7,7 @@ module Assently
   module Serializers
     RSpec.describe CaseSerializer do
       describe ".serialize" do
-        it "maps the case to it's api representation and return it as json" do
+        it "maps the case to a api representation and return it as json" do
           signature_case = double "Assently::Case"
           api_hash = { "The" => "Case" }
 
@@ -16,11 +16,17 @@ module Assently
           expect(CaseSerializer.serialize(signature_case)).to eq JSON.pretty_generate(api_hash)
         end
 
-        it "takes options for how to handle the user" do
-          signature_case = double "Assently::Case"
+        it "maps event subscription" do
           api_hash = { "The" => "Case" }
-          options = { postback_url: "http://example.com" }
-          options_hash = { "CaseFinishedCallbackUrl" => "http://example.com" }
+          signature_case = double "Assently::Case"
+          event_subscription = double "Assently::CaseEventSubscription", events: ["finished", "rejected"], url: "http://example.com"
+          options = { event_callback: event_subscription }
+          options_hash = {
+            "EventCallback" => {
+              "Events" => ["finished", "rejected"],
+              "Url" => "http://example.com"
+            }
+          }
 
           expect(Assently::ApiMappers::CaseMapper).to receive(:to_api).with(signature_case).and_return api_hash
           expect(Assently::ApiMappers::CaseOptionsMapper).to receive(:to_api).with(options).and_return options_hash

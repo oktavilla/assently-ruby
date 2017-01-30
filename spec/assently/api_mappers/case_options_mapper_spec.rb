@@ -5,10 +5,15 @@ module Assently
   module ApiMappers
     RSpec.describe CaseOptionsMapper do
       describe "#to_api" do
-        it "translates postback_url to CaseFinishedCallbackUrl" do
-          expect(CaseOptionsMapper.to_api(postback_url: "http://example.com")).to eq({
-            "CaseFinishedCallbackUrl" => "http://example.com"
-          })
+        it "translates event_callback to EventCallback object" do
+          event_callback = double "CaseEventSubscription", events: ["finished"], url: "http://example.com"
+          event_callback_representation = {
+            "EventCallback" => {
+              "Events" => ["finished"],
+              "Url" => "http://example.com"
+            }
+          }
+          expect(CaseOptionsMapper.to_api(event_callback: event_callback)).to eq(event_callback_representation)
         end
 
         it "translates cancel_url to CancelUrl" do
@@ -67,10 +72,10 @@ module Assently
 
         it "ignores unknown keys" do
           expect(CaseOptionsMapper.to_api({
-            postback_url: "http://example.com",
+            locale: "sv",
             unknown: "Some value"
           })).to eq({
-            "CaseFinishedCallbackUrl" => "http://example.com"
+            "Culture" => "sv-SE"
           })
         end
       end

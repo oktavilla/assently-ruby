@@ -32,7 +32,6 @@ http_interactions:
             "touch"
           ],
           "CaseReferenceId": "e0d458e6-bdac-4d8b-80e6-bf468b9a2b0f",
-          "CaseFinishedCallbackUrl": "http://example.com/postback",
           "ContinueName": "Back to the site",
           "ContinueUrl": "http://example.com/thanks",
           "ContinueAuto": true,

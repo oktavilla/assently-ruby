@@ -5,7 +5,7 @@
 
 # Assently API Client
 
-Ruby client for the [Assently API](https://assently.com/). Check out [the official API documentation here](https://app.assently.com/api/).
+Ruby client for the [Assently API v2](https://assently.com/). Check out [the official API documentation here](https://app.assently.com/api/).
 
 ### Supported API calls 
 
@@ -27,15 +27,6 @@ Ruby client for the [Assently API](https://assently.com/). Check out [the offici
 
 Missing something? Contributions are very welcome! 😘 
 
-### Note
-If you miss `getviewcaseurlquery`, this is how you can get the view case url.
-
-```
-signing_case = assently.get_case case_id
-signing_case.response["Parties"].first["PartyUrl"] # Each party gets their own url
-
-```
-
 ## Usage
 
 ### Creating a case
@@ -45,7 +36,7 @@ assently = Assently.client assently_api_key, assently_api_secret
 
 case_id = SecureRandom.uuid
 
-signature_case = Assently::Case.new "Agreement", ["electronicid"], case_id: case_id
+signature_case = Assently::Case.new "Agreement", ["electronicid"], id: case_id
 signature_case.add_party Assently::Party.new_with_attributes({
   name: "First Last",
   email: "name@example.com",
@@ -53,19 +44,18 @@ signature_case.add_party Assently::Party.new_with_attributes({
 })
 signature_case.add_document Assently::Document.new "/some/path/file.pdf"
 
+event_subscription = Assently::CaseEventSubscription.new ["finished", "expired"], "https://example.com/my-endpoint"
+
 result = assently.create_case(signature_case, {
-  # Assently sends a POST with the signed case as the JSON body when the signing process is finished.
-  postback_url: "https://example.com/my-endpoint",
+  # Callback for document events
+  event_callback: event_subscription,
+  # User ends up here after finishing the signing process
   continue: {
-    # user ends up here after finishing the signing process
     url: "http://example.com/user-endpoint",
     auto: true
   },
   # User ends up here when cancelling, at the moment there is no cancel callback
-  cancel_url: "http://example.com/user-canceled",
-  # Procedure can be ”default” or ”form”, this changes some copy in the Assently interface.
-  # defaults to ”default”
-  procedure: "form"
+  cancel_url: "http://example.com/user-canceled"
 })
 
 if result.success?
@@ -78,7 +68,7 @@ else
 end
 ```
 
-### Getting the signature url for a case
+### Getting the signing URL for a case
 
 ```ruby
 assently = Assently.client API_KEY, API_SECRET

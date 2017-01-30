@@ -17,7 +17,7 @@ module Assently
         allow(client).to receive :post
 
         signature_case = double "Case"
-        options = { postback_url: "http://example.com/postback" }
+        options = { locale: "sv" }
 
         expect(Assently::Serializers::CaseSerializer).to receive(:serialize).with(signature_case, options).and_return "case-json"
 
@@ -37,7 +37,6 @@ module Assently
           signature_case.add_document Assently::Document.new(File.join(Dir.pwd, "spec/fixtures/agreement.pdf"))
 
           result = client.create_case(signature_case, {
-            postback_url: "http://example.com/postback",
             continue: {
               name: "Back to the site",
               url: "http://example.com/thanks",

@@ -1,3 +1,5 @@
+require "assently/api_mappers/case_event_subscription_mapper"
+
 module Assently
   class InvalidCaseOptionError < ArgumentError; end
 
@@ -39,7 +41,6 @@ module Assently
           send_finish_email_to_creator: "SendFinishEmailToCreator",
           send_finish_email_to_parties: "SendFinishEmailToParties",
           send_recall_email_to_parties: "SendRecallEmailToParties",
-          postback_url: "CaseFinishedCallbackUrl",
           cancel_url: "CancelUrl",
           procedure: "Procedure",
           locale: ->(value) {
@@ -47,6 +48,9 @@ module Assently
           },
           continue: ->(options) {
             CaseOptionsMapper.to_api options, name: "ContinueName", url: "ContinueUrl", auto: "ContinueAuto"
+          },
+          event_callback: ->(value) {
+            { "EventCallback" => CaseEventSubscriptionMapper.to_api(value) }
           }
         }
       end
