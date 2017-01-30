@@ -68,19 +68,18 @@ else
 end
 ```
 
-### Getting the signing URL for a case
+### Making a case available for signing
 
 ```ruby
 assently = Assently.client API_KEY, API_SECRET
 result = assently.get_case case_id
 
 if result.success?
-  puts "The url is: #{result.response}"
   assently.send_case case_id
   
   signing_case = assently.get_case case_id
   
-  puts "Sign here: #{signing_case.response["Parties"].first["PartyUrl"]}"
+  puts "Sign it here: #{signing_case.response["Parties"].first["PartyUrl"]}"
 else
   puts "Could not get signature url"
   result.errors.each do |error|
