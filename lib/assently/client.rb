@@ -21,16 +21,26 @@ module Assently
       post "/api/v2/createcase", signature_case_json
     end
 
-    def send_case(id)
+    def send_case id
       post "/api/v2/sendcase", JSON.pretty_generate({ id: id })
     end
 
-    def get_case(id)
-      post "/api/v2/getcase", JSON.pretty_generate({ id: id })
+    def get_case id
+      get "/api/v2/getcase", { id: id }
     end
 
     def post api_command, body = nil
       response = make_post api_command, body
+
+      if response.success?
+        SuccessResult.new response.body
+      else
+        ErrorResult.new response.body
+      end
+    end
+
+    def get api_command, parameters = {}
+      response = make_get api_command, parameters
 
       if response.success?
         SuccessResult.new response.body
@@ -63,6 +73,10 @@ module Assently
         request.headers["Content-Type"] = "application/json; charset=utf-8"
         request.body = body if body
       end
+    end
+
+    def make_get url, parameters
+      connection.get url, parameters
     end
 
     def hosts

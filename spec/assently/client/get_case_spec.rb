@@ -16,19 +16,18 @@ module Assently
     describe "#get_case" do
       describe "with a case_id as argument" do
         it "sends the getcase query with the case id json" do
-          allow(client).to receive :post
+          allow(client).to receive :get
 
           case_id = SecureRandom.uuid
-          serialized_json = "{\n  \"id\": \"#{case_id}\"\n}"
 
           client.get_case case_id
 
-          expect(client).to have_received(:post).with "/api/v2/getcase", serialized_json
+          expect(client).to have_received(:get).with "/api/v2/getcase", id: case_id
         end
       end
 
       describe "when the case exists", vcr: { cassette_name: "ASSENTLY_Client/_get_case/case_exists" } do
-        let (:case_id) { SecureRandom.uuid }
+        let (:case_id) { "my-case-id" }
 
         before do
           create_case case_id

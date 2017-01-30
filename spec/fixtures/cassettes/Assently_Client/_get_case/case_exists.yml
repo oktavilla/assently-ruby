@@ -7,9 +7,8 @@ http_interactions:
       encoding: UTF-8
       string: |-
         {
-          "Id": "b964868d-c6a9-4d17-88e6-3a271e49508c",
+          "Id": "0dd15278-54b9-4f89-bd76-8396f5d1bd4e",
           "Name": "Agreement",
-          "NameAlias": "Agreement_alias",
           "Documents": [
             {
               "Filename": "agreement.pdf",
@@ -25,13 +24,12 @@ http_interactions:
             {
               "Name": "First Last",
               "EmailAddress": "name@example.com",
-              "SocialSecurityNumber": "0301030854"
+              "SocialSecurityNumber": "3907311744"
             }
           ],
           "AllowedSignatureTypes": [
             "touch"
-          ],
-          "CaseReferenceId": "49b81ed1-d2db-459d-919c-967d03f773a4"
+          ]
         }
     headers:
       Accept:
@@ -54,9 +52,9 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       Set-Cookie:
-      - sid=02is4heqfidjm5wgqkmw3ml3; path=/; HttpOnly; Secure
+      - sid=qsyw22yaaorfepswaqauweud; path=/; HttpOnly; Secure
       Date:
-      - Thu, 26 Jan 2017 20:23:50 GMT
+      - Mon, 30 Jan 2017 19:29:12 GMT
       Content-Length:
       - '0'
       Strict-Transport-Security:
@@ -65,16 +63,13 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Thu, 26 Jan 2017 20:23:50 GMT
+  recorded_at: Mon, 30 Jan 2017 19:29:13 GMT
 - request:
-    method: post
-    uri: https://test.assently.com/api/v2/getcase
+    method: get
+    uri: https://test.assently.com/api/v2/getcase?id=my-case-id
     body:
-      encoding: UTF-8
-      string: |-
-        {
-          "id": "b964868d-c6a9-4d17-88e6-3a271e49508c"
-        }
+      encoding: US-ASCII
+      string: ''
     headers:
       Accept:
       - application/json
@@ -82,8 +77,6 @@ http_interactions:
       - Basic <ASSENTLY_API_AUTH_HEADER>
       User-Agent:
       - Faraday v0.11.0
-      Content-Type:
-      - application/json; charset=utf-8
       Accept-Encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
   response:
@@ -107,7 +100,7 @@ http_interactions:
       - max-age=31536000
     body:
       encoding: UTF-8
-      string: '{"Id":"b964868d-c6a9-4d17-88e6-3a271e49508c","Status":"Draft","Name":"Agreement","NameAlias":"Agreement_alias","Parties":[{"Id":"30f5","Name":"First
+      string: '{"Id":"my-case-id","Status":"Draft","Name":"Agreement","NameAlias":"Agreement_alias","Parties":[{"Id":"30f5","Name":"First
         Last","GroupName":null,"EmailAddress":"name@example.com","SocialSecurityNumber":null,"SignedOn":null,"SignatureData":null,"PartyUrl":"https://test.assently.com/c/5-b0PSlG1AgfIi1LhKVqlpl8jtjrTodpyfjAy63a/0Gv1PSlG1AipJPW1P5kQSgB4nS_yaNdnz8UD44fL","MobilePhone":"","Culture":"","AnyoneCanSign":false,"IpAddress":"","SignatureUrl":null}],"Documents":[{"Id":"54aa","Filename":"agreement.pdf","Data":null,"ContentType":"application/pdf","Size":6925,"Hash":"c466b4b118f825d7fe38d8fc878874daf750160f1227e92a457857acb10b1534945804e0e7071f51696fe8ae5c874abf773ab851d4a35727f2876d87162d0813","Type":"Original","FormFields":{}}],"Visibility":"Group","AllowedSignatureTypes":["Touch"],"Description":"","Stakeholders":[],"Metadata":{},"CancelUrl":null,"ContinueUrl":"","ContinueName":"","ContinueAuto":false,"SendSignRequestEmailToParties":false,"SendFinishEmailToCreator":false,"SendFinishEmailToParties":false,"SendRecallEmailToParties":false,"Culture":"en-US","SignInSequence":false,"IdentityCheck":false,"IsEditable":false,"MergeOnSend":false,"ExpireAfterDays":0,"ExpireOn":null,"RemindAfterDays":0,"RemindOn":null,"CreatedOn":"2017-01-26T20:23:51","TemplateId":null,"SentOn":null,"ReminderSentOn":null,"Hash":null,"AgentUrl":"https://test.assently.com/a/case/view/b964868d-c6a9-4d17-88e6-3a271e49508c","EventCallback":null,"Procedure":"Default"}'
     http_version: 
   recorded_at: Thu, 26 Jan 2017 20:23:51 GMT

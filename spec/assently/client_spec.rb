@@ -29,7 +29,7 @@ RSpec.describe Assently::Client do
   end
 
   describe "#post" do
-    it "it sends the json as the request body" do
+    it "sends the json as the request body" do
       stub_request(:post, "https://app.assently.com/some/path").
        with({
          basic_auth: ["admin", "secret"],
@@ -50,76 +50,66 @@ RSpec.describe Assently::Client do
       end
     end
 
-    describe "with a successful response" do
-      before do
+    describe "returned result" do
+      it "is a success when successful status is returned" do
         stub_request(:post, "https://app.assently.com/some/path").
           with(basic_auth: ["admin", "secret"]).
           to_return({
             status: 200,
             body: '{ "result": "Success" }'
           })
+
+        result = client.post "/some/path"
+
+        expect(result).to be_a(Assently::Client::SuccessResult)
       end
 
-      describe "result" do
-        it "is successfull" do
-          result = client.post "/some/path"
-
-          expect(result.success?).to be true
-        end
-
-        it "parses the response json" do
-          result = client.post "/some/path"
-
-          expect(result.response).to eq("result" => "Success")
-        end
-
-        it "exposes the raw response" do
-          result = client.post "/some/path"
-
-          expect(result.raw).to eq('{ "result": "Success" }')
-        end
-
-        it "handles simple string bodies" do
-          stub_request(:post, "https://app.assently.com/some/path").
-            with(basic_auth: ["admin", "secret"]).
-            to_return({
-              status: 200,
-              body: "a string response"
-            })
-
-          result = client.post "/some/path"
-
-          expect(result.response).to eq "a string response"
-        end
-      end
-    end
-
-    describe "with a error response" do
-      before do
+      it "is not a success when non-success status is returned" do
         stub_request(:post, "https://app.assently.com/some/path").
           with(basic_auth: ["admin", "secret"]).
           to_return({
-            status: 400,
-            body: '{"error":{"errorCode":"E041","message":"At least one signer is required."}}'
+            status: 500,
+            body: '{ "result": "Failure" }'
           })
-      end
 
-      it "returns a error result" do
         result = client.post "/some/path"
 
-        expect(result.success?).to be false
+        expect(result).to be_a(Assently::Client::ErrorResult)
+      end
+    end
+  end
+
+  describe "#get" do
+    it "makes a get request" do
+      stub = stub_request(:get, "https://app.assently.com/some/path?key=value").
+       with({
+         basic_auth: ["admin", "secret"]
+       })
+
+      client.get "/some/path", { "key": "value" }
+
+      expect(stub).to have_been_requested
+    end
+
+    describe "returned result" do
+      it "is a success when successful status is returned" do
+        stub_request(:get, "https://app.assently.com/some/path").
+          with(basic_auth: ["admin", "secret"]).
+          to_return({ status: 200 })
+
+        result = client.get "/some/path"
+
+        expect(result).to be_a(Assently::Client::SuccessResult)
       end
 
-      it "parses the error messages from the html body" do
-        result = client.post "/some/path"
+      it "is not a success when non-success status is returned" do
+        stub_request(:get, "https://app.assently.com/some/path").
+          with(basic_auth: ["admin", "secret"]).
+          to_return({ status: 500 })
 
-        expect(result.errors).to eq [ "E041 At least one signer is required." ]
-      end
+        result = client.get "/some/path"
 
-      it "exposes the raw response" do
-        result = client.post "/some/path"
-
-        expect(result.raw).to eq('{"error":{"errorCode":"E041","message":"At least one signer is required."}}')
+        expect(result).to be_a(Assently::Client::ErrorResult)
       end
     end
   end
@@ -141,6 +131,79 @@ RSpec.describe Assently::Client do
       it "uses basic auth" do
         expect(client.headers["Authorization"]).to eq "Basic YWRtaW46c2VjcmV0"
       end
+    end
+  end
+
+  describe "Client::SuccessResult" do
+    before do
+      stub_request(:post, "https://app.assently.com/some/path").
+        with(basic_auth: ["admin", "secret"]).
+        to_return({
+          status: 200,
+          body: '{ "result": "Success" }'
+        })
+    end
+
+    describe "result" do
+      it "is successfull" do
+        result = client.post "/some/path"
+
+        expect(result.success?).to be true
+      end
+
+      it "parses the response json" do
+        result = client.post "/some/path"
+
+        expect(result.response).to eq("result" => "Success")
+      end
+
+      it "exposes the raw response" do
+        result = client.post "/some/path"
+
+        expect(result.raw).to eq('{ "result": "Success" }')
+      end
+
+      it "handles simple string bodies" do
+        stub_request(:post, "https://app.assently.com/some/path").
+          with(basic_auth: ["admin", "secret"]).
+          to_return({
+            status: 200,
+            body: "a string response"
+          })
+
+          result = client.post "/some/path"
+
+          expect(result.response).to eq "a string response"
+      end
+    end
+  end
+
+  describe "Client::ErrorResult" do
+    before do
+      stub_request(:post, "https://app.assently.com/some/path").
+        with(basic_auth: ["admin", "secret"]).
+        to_return({
+          status: 400,
+          body: '{"error":{"errorCode":"E041","message":"At least one signer is required."}}'
+        })
+    end
+
+    it "returns a error result" do
+      result = client.post "/some/path"
+
+      expect(result.success?).to be false
+    end
+
+    it "parses the error messages from the html body" do
+      result = client.post "/some/path"
+
+      expect(result.errors).to eq [ "E041 At least one signer is required." ]
+    end
+
+    it "exposes the raw response" do
+      result = client.post "/some/path"
+
+      expect(result.raw).to eq('{"error":{"errorCode":"E041","message":"At least one signer is required."}}')
     end
   end
 end
