@@ -79,6 +79,14 @@ module Assently
           })
         end
       end
+
+      it "formats expire on date" do
+        expire_date = DateTime.new 2017,1,31
+
+        expect(CaseOptionsMapper.to_api({ expire_on: expire_date })).to eq({
+          "ExpireOn" => "2017-01-31T00:00:00+00:00"
+        })
+      end
     end
   end
 end

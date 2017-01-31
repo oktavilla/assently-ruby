@@ -37,6 +37,10 @@ module Assently
 
       def self.mappers
         {
+          name_alias: "NameAlias",
+          agent_username: "AgentUsername",
+          visibility: "Visibility",
+          description: "Description",
           send_sign_request_email_to_parties: "SendSignRequestEmailToParties",
           send_finish_email_to_creator: "SendFinishEmailToCreator",
           send_finish_email_to_parties: "SendFinishEmailToParties",
@@ -49,9 +53,20 @@ module Assently
           continue: ->(options) {
             CaseOptionsMapper.to_api options, name: "ContinueName", url: "ContinueUrl", auto: "ContinueAuto"
           },
+          sign_in_sequence: "SignInSequence",
+          identity_check: "IdentityCheck",
+          merge_on_send: "MergeOnSend",
+          expire_after_days: "ExpireAfterDays",
+          expire_on: ->(value) {
+            { "ExpireOn" => value.iso8601 }
+          },
+          remind_ander_days: "RemindAfterDays",
+          template_id: "TemplateId",
+          is_editable: "IsEditable",
           event_callback: ->(value) {
             { "EventCallback" => CaseEventSubscriptionMapper.to_api(value) }
-          }
+          },
+          meta_data: "MetaData"
         }
       end
     end
