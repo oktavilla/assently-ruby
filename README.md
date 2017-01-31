@@ -29,6 +29,14 @@ Missing something? Contributions are very welcome! 😘
 
 ## Usage
 
+### Environment
+
+When creating a client instance you can choose to use either Assently's `production` (default when not specified) or `test` environment. The host `app.assently.com` is used for production and `test.assently.com` is used for test when constructing the API commands. Test environment is specified like this:
+
+```ruby
+Assently.client ENV["ASSENTLY_API_KEY"], ENV["ASSENTLY_API_SECRET"], :test
+```
+
 ### Creating a case
 
 ```ruby
