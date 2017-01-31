@@ -26,7 +26,7 @@ module Assently
         end
       end
 
-      describe "when the case exists", vcr: { cassette_name: "ASSENTLY_Client/_get_case/case_exists" } do
+      describe "when the case exists", vcr: { cassette_name: "Assently_Client/_get_case/case_exists" } do
         let (:case_id) { "my-case-id" }
 
         before do

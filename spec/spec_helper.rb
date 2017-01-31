@@ -20,7 +20,6 @@ VCR.configure do |config|
 
   config.filter_sensitive_data("<ASSENTLY_API_AUTH_HEADER>") { Base64.strict_encode64 "#{ENV["ASSENTLY_API_KEY"]}:#{ENV["ASSENTLY_API_SECRET"]}" }
 
-  config.allow_http_connections_when_no_cassette = true
   config.ignore_hosts "codeclimate.com"
 end
 
