@@ -6,13 +6,13 @@ module Assently
   end
 
   class Document
-    attr_reader :path, :api_key, :api_secret
+    attr_reader :path, :username, :password
 
-    def initialize path, filename: nil, api_key: nil, api_secret: nil
+    def initialize path, filename: nil, username: nil, password: nil
       @path = path
       @filename = filename
-      @api_key = api_key
-      @api_secret = api_secret
+      @username = username
+      @password = password
     end
 
     def filename
@@ -54,8 +54,8 @@ module Assently
     end
 
     def authentication_params
-      if api_key && api_secret
-        { http_basic_authentication: [ api_key, api_secret ] }
+      if username && password
+        { http_basic_authentication: [ username, password ] }
       else
         {}
       end

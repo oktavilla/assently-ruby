@@ -86,7 +86,7 @@ module Assently
           end
 
           it "returns the document" do
-            document = Document.new("http://#{url}", api_key: "test-user", api_secret: "secret")
+            document = Document.new("http://#{url}", username: "test-user", password: "secret")
 
             expect(document.data).to eq Base64.encode64("the-body")
           end
