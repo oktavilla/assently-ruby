@@ -3,7 +3,7 @@ module Assently
     attr_reader :events, :url
 
     def self.events
-      [ "created", "sent", "recalled", "finished", "rejected", "expired", "deleted", "signatureadded", "approvalrequested" ]
+      [ "created", "sent", "recalled", "finished", "rejected", "expired", "deleted", "signatureadded", "approvalrequested", "reminded" ]
     end
 
     def initialize(events, url)
