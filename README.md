@@ -27,6 +27,14 @@ Ruby client for the [Assently API v2](https://assently.com/). Check out [the off
 
 Missing something? Contributions are very welcome! 😘 
 
+## Installation
+
+Include the gem in your `Gemfile`:
+
+```ruby
+gem "assently"
+```
+
 ## Usage
 
 ### Environment
