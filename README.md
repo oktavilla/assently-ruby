@@ -1,9 +1,9 @@
-[![Build Status](https://travis-ci.org/Oktavilla/egree-ruby.svg?branch=master)](https://travis-ci.org/Oktavilla/egree-ruby)
+[![Build Status](https://travis-ci.org/Oktavilla/assently-ruby.svg?branch=master)](https://travis-ci.org/Oktavilla/assently-ruby)
 [![Code Climate](https://codeclimate.com/github/Oktavilla/egree-ruby/badges/gpa.svg)](https://codeclimate.com/github/Oktavilla/egree-ruby)
 [![Test Coverage](https://codeclimate.com/github/Oktavilla/egree-ruby/badges/coverage.svg)](https://codeclimate.com/github/Oktavilla/egree-ruby)
 [![Gem Version](https://badge.fury.io/rb/egree.svg)](http://badge.fury.io/rb/egree)
 
-# Egree
+# Assently
 
 Ruby client for the [Assently API](https://app.assently.com/apiv1).
 
