@@ -69,7 +69,7 @@ module Assently
     private
 
     def create_case case_id = nil
-      signature_case = Assently::Case.new "Agreement", ["touch"], case_id: case_id
+      signature_case = Assently::Case.new "Agreement", ["touch"], id: case_id
       signature_case.add_party Assently::Party.new_with_attributes({
         name: "First Last",
         email: "name@example.com",

@@ -8,9 +8,9 @@ module Assently
 
     attr_reader :name, :signature_types, :id
 
-    def initialize name, signature_types, options = {}
+    def initialize name, signature_types, id: nil
       @name = name
-      @id = options.delete(:id) { IdGenerator.generate }
+      @id = id || IdGenerator.generate
       self.signature_types = signature_types
     end
 
