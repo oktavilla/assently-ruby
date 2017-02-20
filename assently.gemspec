@@ -6,10 +6,10 @@ require 'assently/version'
 Gem::Specification.new do |spec|
   spec.name          = "assently"
   spec.version       = Assently::VERSION
-  spec.authors       = ["Joel Junström"]
-  spec.email         = ["joel.junstrom@oktavilla.se"]
+  spec.authors       = ["Joel Junström", "Arvid Andersson"]
+  spec.email         = ["joel@oktavilla.se", "arvid@oktavilla.se"]
   spec.summary       = %q{Client for the Assently APIv2}
-  spec.homepage      = "https://github.com/Oktavilla/egree-ruby"
+  spec.homepage      = "https://github.com/Oktavilla/assently-ruby"
   spec.license       = "MIT"
 
   spec.required_ruby_version = "~> 2.0"
