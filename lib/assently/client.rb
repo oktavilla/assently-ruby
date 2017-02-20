@@ -1,5 +1,5 @@
 require "json"
-require "faraday"
+require "http"
 
 require "assently/serializers/case_serializer"
 
@@ -30,23 +30,11 @@ module Assently
     end
 
     def post api_command, body = nil
-      response = make_post api_command, body
-
-      if response.success?
-        SuccessResult.new response.body
-      else
-        ErrorResult.new response.body
-      end
+      make_response make_post(api_command, body)
     end
 
     def get api_command, parameters = {}
-      response = make_get api_command, parameters
-
-      if response.success?
-        SuccessResult.new response.body
-      else
-        ErrorResult.new response.body
-      end
+      make_response make_get(api_command, parameters)
     end
 
     def host
@@ -54,11 +42,9 @@ module Assently
     end
 
     def connection
-      Faraday.new "https://#{host}" do |conn|
-        conn.headers["Accept"] = "application/json"
-        conn.basic_auth api_key, api_secret
-        conn.adapter :net_http
-      end
+      HTTP.
+        headers(accept: "application/json").
+        basic_auth(user: api_key, pass: api_secret)
     end
 
     def headers
@@ -67,16 +53,30 @@ module Assently
 
     private
 
-    def make_post url, body
-      connection.post do |request|
-        request.url url
-        request.headers["Content-Type"] = "application/json; charset=utf-8"
-        request.body = body if body
+    def api_base_url
+      "https://#{host}"
+    end
+
+    def api_url path
+      URI.join(api_base_url, path)
+    end
+
+    def make_response response
+      if response.status.success?
+        SuccessResult.new response.body.to_s
+      else
+        ErrorResult.new response.body.to_s
       end
     end
 
-    def make_get url, parameters
-      connection.get url, parameters
+    def make_post path, body
+      connection.
+        headers(content_type: "application/json; charset=utf-8").
+        post api_url(path), body: body
+    end
+
+    def make_get path, parameters
+      connection.get api_url(path), params: parameters
     end
 
     def hosts

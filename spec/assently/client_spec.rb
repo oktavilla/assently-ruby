@@ -115,21 +115,19 @@ RSpec.describe Assently::Client do
   end
 
   describe "#connection" do
-    it "looks lika a faraday connection" do
-      expect(client.connection).to be_kind_of Faraday::Connection
-    end
-
-    it "runs over https" do
-      expect(client.connection.scheme).to eq "https"
-    end
-
-    it "points to the host" do
-      expect(client.connection.host).to eq client.host
+    it "looks lika a http connection" do
+      expect(client.connection).to be_kind_of HTTP::Client
     end
 
     describe "authentication" do
       it "uses basic auth" do
-        expect(client.headers["Authorization"]).to eq "Basic YWRtaW46c2VjcmV0"
+        expect(client.connection.default_options.headers["Authorization"]).to eq "Basic YWRtaW46c2VjcmV0"
+      end
+    end
+
+    describe "accept header" do
+      it "accepts json" do
+        expect(client.connection.default_options.headers["Accept"]).to eq "application/json"
       end
     end
   end
