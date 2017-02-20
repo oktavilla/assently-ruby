@@ -1,12 +1,13 @@
 if ENV["CI"]
-  require "codeclimate-test-reporter"
-  CodeClimate::TestReporter.start
+  require "simplecov"
+  SimpleCov.start
 end
 
 require "dotenv"
 require "webmock/rspec"
 require "vcr"
 require "uri"
+require "pry"
 
 Dotenv.load
 
@@ -17,8 +18,7 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.configure_rspec_metadata!
 
-  config.filter_sensitive_data("<EGREE_USERNAME>") { URI.encode_www_form_component ENV["EGREE_USERNAME"] }
-  config.filter_sensitive_data("<EGREE_PASSWORD>") { URI.encode_www_form_component ENV["EGREE_PASSWORD"] }
+  config.filter_sensitive_data("<ASSENTLY_API_AUTH_HEADER>") { Base64.strict_encode64 "#{ENV["ASSENTLY_API_KEY"]}:#{ENV["ASSENTLY_API_SECRET"]}" }
 
   config.ignore_hosts "codeclimate.com"
 end

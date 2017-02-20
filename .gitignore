@@ -3,7 +3,6 @@
 .bundle
 .config
 .yardoc
-.ruby-version
 .env
 Gemfile.lock
 InstalledFiles
@@ -18,3 +17,4 @@ test/tmp
 test/version_tmp
 tmp
 bin/
+.DS_Store

@@ -3,44 +3,79 @@
 [![Test Coverage](https://codeclimate.com/github/Oktavilla/egree-ruby/badges/coverage.svg)](https://codeclimate.com/github/Oktavilla/egree-ruby)
 [![Gem Version](https://badge.fury.io/rb/egree.svg)](http://badge.fury.io/rb/egree)
 
-# Egree
+# Assently API Client
 
-Ruby client for the [Assently API](https://app.assently.com/apiv1).
+Ruby client for the [Assently API v2](https://assently.com/). Check out [the official API documentation here](https://app.assently.com/api/).
 
-Currently the only supported api calls is `createcasecommand` and `getviewcaseurlquery`.
+### Supported API calls 
+
+| API call   | Supported |
+|----------|:-------------:|
+| `createcase` | ✔️ |
+| `sendcase` | ✔️|
+| `getcase` | ✔️|
+| `createcasefromtemplate ` | |
+| `updatecase ` | |
+| `remindcase ` | |
+| `deletecase ` | |
+| `recallcase ` | |
+| `findcases ` | |
+| `findtemplates ` | |
+| `getdocumentdata ` | |
+| `createagent ` | |
+| `createssoticket ` | |
+
+Missing something? Contributions are very welcome! 😘 
+
+## Installation
+
+Include the gem in your `Gemfile`:
+
+```ruby
+gem "assently"
+```
 
 ## Usage
+
+### Environment
+
+When creating a client instance you can choose to use either Assently's `production` (default when not specified) or `test` environment. The host `app.assently.com` is used for production and `test.assently.com` is used for test when constructing the API commands. Test environment is specified like this:
+
+```ruby
+Assently.client ENV["ASSENTLY_API_KEY"], ENV["ASSENTLY_API_SECRET"], :test
+```
 
 ### Creating a case
 
 ```ruby
-egree = Egree.client username, password
+assently = Assently.client assently_api_key, assently_api_secret
 
-signature_case = Egree::Case.new "Agreement", ["touch"]
-signature_case.add_party Egree::Party.new_with_attributes({
+case_id = SecureRandom.uuid
+
+signature_case = Assently::Case.new "Agreement", ["electronicid"], id: case_id
+signature_case.add_party Assently::Party.new_with_attributes({
   name: "First Last",
   email: "name@example.com",
   social_security_number: "1234567890"
 })
-signature_case.add_document Egree::Document.new "/some/path/file.pdf"
+signature_case.add_document Assently::Document.new "/some/path/file.pdf"
 
-result = egree.create_case(signature_case, {
-  # Egree sends a POST with the signed case as the JSON body when the signing process is finished.
-  postback_url: "https://example.com/my-endpoint",
+event_subscription = Assently::CaseEventSubscription.new ["finished", "expired"], "https://example.com/my-endpoint"
+
+result = assently.create_case(signature_case, {
+  # Callback for document events
+  event_callback: event_subscription,
+  # User ends up here after finishing the signing process
   continue: {
-    # user ends up here after finishing the signing process
     url: "http://example.com/user-endpoint",
     auto: true
   },
   # User ends up here when cancelling, at the moment there is no cancel callback
-  cancel_url: "http://example.com/user-canceled",
-  # Procedure can be ”default” or ”form”, this changes some copy in the Egree interface.
-  # defaults to ”default”
-  procedure: "form"
+  cancel_url: "http://example.com/user-canceled"
 })
 
 if result.success?
-  puts "#{signature_case.reference_id} was created."
+  puts "#{signature_case.id} was created."
 else 
   puts "There was some issues with the case"
   result.errors.each do |error|
@@ -49,14 +84,18 @@ else
 end
 ```
 
-### Getting the signature url for a case
+### Making a case available for signing
 
 ```ruby
-egree = Egree.client username, password
-result = egree.get_case_url "98d08cf5-d35d-403b-ac31-fa1ac85037a1"
+assently = Assently.client API_KEY, API_SECRET
+result = assently.get_case case_id
 
 if result.success?
-  puts "The url is: #{result.response}"
+  assently.send_case case_id
+  
+  signing_case = assently.get_case case_id
+  
+  puts "Sign it here: #{signing_case.response["Parties"].first["PartyUrl"]}"
 else
   puts "Could not get signature url"
   result.errors.each do |error|
@@ -65,6 +104,14 @@ else
 end
 ```
   
+### Local development
+
+Create a `.env` file in the root directory to run the integration tests against your Assently test environment.
+
+```sh
+ASSENTLY_API_KEY=your-api-key
+ASSENTLY_API_KEY=your-api-secret
+```
 
 
 ## Contributing
@@ -75,11 +122,3 @@ Just create a fork and submit a pull request.
 
 Please adhere to the coding standards used in the project and add tests.
 
-### Local development
-
-Create a .env file in the root directory to run the integration tests against your Egree environment.
-
-```yaml
-EGREE_USERNAME=your-username
-EGREE_PASSWORD=your-password
-```
