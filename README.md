@@ -19,9 +19,10 @@ Ruby client for the [Assently API v2](https://assently.com/). Check out [the off
 | `remindcase ` | |
 | `deletecase ` | |
 | `recallcase ` | |
-| `findcases ` | |
+| `findcases` | ✔️|
+| `createcasefromtemplate ` | |
 | `findtemplates ` | |
-| `getdocumentdata ` | |
+| `getdocumentdata` | ✔️ |
 | `createagent ` | |
 | `createssoticket ` | |
 

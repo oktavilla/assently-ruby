@@ -1,0 +1,173 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://test.assently.com/api/v2/createcase
+    body:
+      encoding: UTF-8
+      string: |-
+        {
+          "Id": "d9013f71-8983-4365-9450-19ea3c42cc90",
+          "Name": "Agreement",
+          "Documents": [
+            {
+              "Filename": "agreement.pdf",
+              "Data": ""
+              "ContentType": "application/pdf",
+              "Size": 6925,
+              "FormFields": [
+
+              ]
+            }
+          ],
+          "Parties": [
+            {
+              "Name": "First Last",
+              "EmailAddress": "name@example.com",
+              "SocialSecurityNumber": "1207269273"
+            }
+          ],
+          "AllowedSignatureTypes": [
+            "touch"
+          ]
+        }
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Basic <ASSENTLY_API_AUTH_HEADER>
+      Content-Type:
+      - application/json; charset=utf-8
+      Connection:
+      - close
+      Host:
+      - test.assently.com
+      User-Agent:
+      - http.rb/2.2.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 12 Jun 2019 08:28:36 GMT
+      Content-Length:
+      - '0'
+      Connection:
+      - close
+      Cache-Control:
+      - private, s-maxage=0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Set-Cookie:
+      - sid=g5kgw2me5s3y0z3fzjoqoake; path=/; HttpOnly
+      X-Subenvironment:
+      - Test
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+    http_version: 
+  recorded_at: Wed, 12 Jun 2019 08:28:36 GMT
+- request:
+    method: get
+    uri: https://test.assently.com/api/v2/getcase?id=d9013f71-8983-4365-9450-19ea3c42cc90
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Basic <ASSENTLY_API_AUTH_HEADER>
+      Connection:
+      - close
+      Host:
+      - test.assently.com
+      User-Agent:
+      - http.rb/2.2.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 12 Jun 2019 08:28:36 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1818'
+      Connection:
+      - close
+      Cache-Control:
+      - private, s-maxage=0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Set-Cookie:
+      - sid=f2kgfyffitgbwcrqo4rf3yyu; path=/; HttpOnly
+      X-Subenvironment:
+      - Test
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: UTF-8
+      string: '{"Id":"d9013f71-8983-4365-9450-19ea3c42cc90","Status":"Draft","Name":"Agreement","NameAlias":"","AccountId":216,"MasterAccountId":null,"Parties":[{"Id":"ce67","Name":"First
+        Last","GroupName":null,"EmailAddress":"name@example.com","SocialSecurityNumber":"1207269273","EidSerialNumber":"","SignedOn":null,"SignatureData":null,"PartyUrl":"https://test.assently.com/c/uvfk9g-v1ghJaSNDhriKsTIc2OAxNWgRLSy4JclM/uvfk9g-v1giZ6PeF9mznemTpNewR-0GsOz0I8uXR","MobilePhone":"","Culture":"","AnyoneCanSign":false,"IpAddress":"","Provider":"Unknown","SignatureType":"Unknown","SignatureUrl":null}],"Documents":[{"Id":"aa0e","Filename":"agreement.pdf","Data":null,"ContentType":"application/pdf","Size":6925,"Hash":"c466b4b118f825d7fe38d8fc878874daf750160f1227e92a457857acb10b1534945804e0e7071f51696fe8ae5c874abf773ab851d4a35727f2876d87162d0813","Type":"Original","FormFields":{}}],"Visibility":"Group","AllowedSignatureTypes":["Touch"],"Description":"","Stakeholders":[],"Metadata":{},"CancelUrl":null,"ContinueUrl":"","ContinueName":"","ContinueAuto":false,"NotificationMethods":["Email"],"SendSignRequestEmailToParties":false,"SendFinishEmailToCreator":false,"SendFinishEmailToParties":false,"SendRecallEmailToParties":false,"RequestMessage":null,"RequestMessageSms":null,"FinishedMessage":null,"FinishedMessageSms":null,"Culture":"en-US","SignInSequence":false,"IdentityCheck":false,"IsEditable":false,"MergeOnSend":false,"UseGroupNames":false,"ExpireAfterDays":0,"ExpireOn":null,"RemindAfterDays":0,"RemindOn":null,"CreatedOn":"2019-06-12T08:28:36","TemplateId":null,"ApprovalRequired":false,"Approvers":[],"ApprovalRequestedOn":null,"SentOn":null,"ReminderSentOn":null,"Hash":null,"AgentUrl":"https://test.assently.com/a/case/view/d9013f71-8983-4365-9450-19ea3c42cc90","EventCallback":null,"Procedure":"Default","Rejected":null}'
+    http_version: 
+  recorded_at: Wed, 12 Jun 2019 08:28:36 GMT
+- request:
+    method: get
+    uri: https://test.assently.com/api/v2/getdocumentdata?caseId=d9013f71-8983-4365-9450-19ea3c42cc90&documentId=aa0e
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Basic <ASSENTLY_API_AUTH_HEADER>
+      Connection:
+      - close
+      Host:
+      - test.assently.com
+      User-Agent:
+      - http.rb/2.2.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 12 Jun 2019 08:28:36 GMT
+      Content-Type:
+      - application/pdf
+      Content-Length:
+      - '6925'
+      Connection:
+      - close
+      Cache-Control:
+      - private, s-maxage=0
+      X-Frame-Options:
+      - SAMEORIGIN
+      Set-Cookie:
+      - sid=g1omepcbryvwj02rg32hcwp3; path=/; HttpOnly
+      Content-Disposition:
+      - attachment; filename=agreement.pdf
+      X-Subenvironment:
+      - Test
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        JVBERi0xLjMKJcTl8uXrp/Og0MTGCjQgMCBvYmoKPDwgL0xlbmd0aCA1IDAgUiAvRmlsdGVyIC9GbGF0ZURlY29kZSA+PgpzdHJlYW0KeAFFjrEKwkA
+    http_version: 
+  recorded_at: Wed, 12 Jun 2019 08:28:36 GMT
+recorded_with: VCR 3.0.3
