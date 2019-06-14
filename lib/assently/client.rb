@@ -29,6 +29,14 @@ module Assently
       get "/api/v2/getcase", { id: id }
     end
 
+    def find_cases options = {}
+      get "/api/v2/findcases", options
+    end
+
+    def get_document_data case_id, document_id
+      get "/api/v2/getdocumentdata", { "caseId" => case_id, "documentId" => document_id }
+    end
+
     def post api_command, body = nil
       make_response make_post(api_command, body)
     end

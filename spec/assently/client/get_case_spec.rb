@@ -81,4 +81,3 @@ module Assently
     end
   end
 end
-
