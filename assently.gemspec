@@ -19,13 +19,13 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "http", "~> 2.2"
+  spec.add_dependency "http", "~> 5.0"
 
-  spec.add_development_dependency "bundler", "~> 1.14"
+  spec.add_development_dependency "bundler", "~> 2"
   spec.add_development_dependency "dotenv", "~> 2.1"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "webmock", "~> 2.3"
-  spec.add_development_dependency "vcr", "~> 3.0"
+  spec.add_development_dependency "webmock", "~> 3.14"
+  spec.add_development_dependency "vcr", "~> 6.0"
   spec.add_development_dependency "luhn", "~> 1.0"
 end
